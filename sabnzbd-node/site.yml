@@ -1,6 +1,6 @@
 ---
 - name: Install sabnzbd on RHEL/CentOS 6 
-  hosts: gordonramsay
+  hosts: sabnzbd-node
   user: root
 
   vars:
