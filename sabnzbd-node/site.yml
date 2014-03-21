@@ -1,5 +1,5 @@
 ---
-- name: Install sabnzbd on RHEL/CentOS 6 
+- name: Install sabnzbd on RHEL 6 and derivatives 
   hosts: sabnzbd-node
   user: root
 
