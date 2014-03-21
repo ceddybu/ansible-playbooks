@@ -1,0 +1,34 @@
+---
+- name: Install epel repo
+  copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo
+
+- name: Install epel GPG key
+  copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+
+- name: Install rpmfusion repo
+  copy: src=rpmfusion-nonfree-updates.repo dest=/etc/yum.repos.d/rpmfusion-nonfree-updates.repo
+
+- name: Install rpmfusion GPG key
+  copy: src=RPM-GPG-KEY-rpmfusion-nonfree-el-6 dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-el-6
+
+- name: Install unrar
+  yum: name=unrar state=present enablerepo=rpmfusion-nonfree-updates
+
+- name: Install ferm
+  yum: name=ferm state=present
+
+- name: Add ferm conf directory
+  file: path=/etc/ferm state=directory
+
+- name: Configure iptables/ferm
+  template: src=ferm.conf.j2 dest=/etc/ferm/ferm.conf
+  notify: restart iptables
+
+- name: Load iptables/ferm configuration
+  command: /usr/sbin/ferm /etc/ferm/ferm.conf
+
+- name: Save iptables configuration
+  command: service iptables save
+
+- name: Start iptables
+  service: name=iptables enabled=yes state=started

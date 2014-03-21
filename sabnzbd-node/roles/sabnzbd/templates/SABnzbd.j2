@@ -1,0 +1,9 @@
+# SABnzbd service configuration
+sabuser={{ sabuser }}
+config="/home/${sabuser}/.sabnzbd/sabnzbd.ini"
+apikey={{ ansible_product_uuid }}
+protocol=http
+host={{ ansible_default_ipv4.address }}
+port={{ web_listen_port }}
+username={{ web_username }}
+password={{ web_password }}

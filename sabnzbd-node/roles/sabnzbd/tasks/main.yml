@@ -1,0 +1,23 @@
+---
+- name: Create repo
+  copy: src=sabnzbd.repo dest=/etc/yum.repos.d/sabnzbd.repo
+
+- name: Install sabnzbd
+  yum: name=SABnzbd state=present
+
+- name: Configure /etc/sysconfig/SABnzbd
+  template: src=SABnzbd.j2 dest=/etc/sysconfig/SABnzbd
+  notify: restart sabnzbd
+
+- name: Create sabnzbd user
+  user: name={{ sabuser }} state=present shell=/sbin/nologin system=yes
+
+- name: Create hidden directory
+  file: dest=/home/{{ sabuser }}/.sabnzbd state=directory owner={{ sabuser }} group={{ sabuser }}
+
+- name: Configure sabnzbd.ini
+  template: src=sabnzbd.ini.j2 dest=/home/{{ sabuser }}/.sabnzbd/sabnzbd.ini mode=0600 owner={{ sabuser }} group={{ sabuser }}
+  notify: restart sabnzbd 
+
+- name: Start sabnzbd
+  service: name=SABnzbd enabled=yes sleep=10 state=started
