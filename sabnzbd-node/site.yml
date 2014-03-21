@@ -6,8 +6,8 @@
   vars:
     sabuser: "sabnzbd"
     web_listen_port: "8080"
-    web_username: "ceddybu"
-    web_password: "getmoney"
+    web_username: "username"
+    web_password: "password"
      
     # SMTP notification settings
     smtp_server: "smtp.mailgun.org:587"
@@ -15,17 +15,6 @@
     smtp_password: "password"
     smtp_to: "sab+alerts@domain.com"
     smtp_from: "{{ ansible_hostname }}@domain.com"
-
-# prompt on the intital run only? Entering each time is bad.  
-#
-#  vars_prompt:
-#  - name: "web_username"
-#    prompt: "enter username to access sabnzb web interface"
-#    private: no
-
-#  - name: "web_password"
-#    prompt: "enter password to access sabnzbd web interface"
-#    private: yes
 
   roles:
     - common
