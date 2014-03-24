@@ -1,35 +1,36 @@
 ---
-- name: Install rpmfusion repo
+- name: rpmfusion-nonfree-updates.repo is installed
   copy: src=rpmfusion-nonfree-updates.repo dest=/etc/yum.repos.d/rpmfusion-nonfree-updates.repo
 
-- name: Install rpmfusion GPG key
+- name: rpmfusion GPG key is installed
   copy: src=RPM-GPG-KEY-rpmfusion-nonfree-el-6 dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-el-6
 
-- name: Install unrar
+- name: unrar is installed
   yum: name=unrar state=present enablerepo=rpmfusion-nonfree-updates
 
-- name: Create repo
+- name: sabnzbd.repo is installed
   copy: src=sabnzbd.repo dest=/etc/yum.repos.d/sabnzbd.repo
 
-- name: Install sabnzbd
-  yum: name=SABnzbd state=present
+- name: SABnzbd package is installed to latest version
+  yum: name=SABnzbd state=latest
+  notify: restart SABnzbd
 
-- name: Configure /etc/sysconfig/SABnzbd
+- name: /etc/sysconfig/SABnzbd is configured
   template: src=SABnzbd.j2 dest=/etc/sysconfig/SABnzbd
-  notify: restart sabnzbd
+  notify: restart SABnzbd
 
-- name: Create sabnzbd user
+- name: sabnzbd user exists
   user: name={{ sabuser }} state=present shell=/sbin/nologin system=yes
 
-- name: '{{ sabuser }} user is in the downloads group'
+- name: sabuser is in the downloads group
   user: name={{ sabuser }} state=present append=yes groups=downloads
 
-- name: Create hidden directory
+- name: hidden directory exists
   file: dest=/home/{{ sabuser }}/.sabnzbd state=directory owner={{ sabuser }} group={{ sabuser }}
 
-- name: Configure sabnzbd.ini
+- name: sabnzbd.ini is configured
   template: src=sabnzbd.ini.j2 dest=/home/{{ sabuser }}/.sabnzbd/sabnzbd.ini mode=0600 owner={{ sabuser }} group={{ sabuser }}
-  notify: restart sabnzbd 
+  notify: restart SABnzbd
 
-- name: Start sabnzbd
-  service: name=SABnzbd enabled=yes sleep=10 state=started
+- name: SABnzbd service is started
+  service: name=SABnzbd enabled=yes state=started sleep=15

@@ -1,31 +1,37 @@
 ---
-- name: Install epel repo
+- name: libselinux-python is installed
+  yum: name=libselinux-python state=present
+
+- name: selinux is disabled
+  selinux: state=disabled
+
+- name: epel.repo is installed
   copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo
 
-- name: Install epel GPG key
+- name: epel GPG key is installed
   copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 
-- name: Install ferm
+- name: ferm package is installed
   yum: name=ferm state=present
 
-- name: Add ferm conf directory
-  file: path=/etc/ferm state=directory
+- name: /etc/ferm/ exists
+  file: path=/etc/ferm/ state=directory
 
-- name: Configure iptables/ferm
+- name: ferm.conf is configured
   template: src=ferm.conf.j2 dest=/etc/ferm/ferm.conf
   notify: restart iptables
 
-- name: Load iptables/ferm configuration
+- name: ferm.conf is active
   command: /usr/sbin/ferm /etc/ferm/ferm.conf
 
-- name: Save iptables configuration
+- name: iptables rules are reboot persistent
   command: service iptables save
 
-- name: Start iptables
+- name: iptables service is started and enabled
   service: name=iptables enabled=yes state=started
 
 - name: downloads user is present
   user: name=downloads state=present shell=/sbin/nologin system=yes
 
-- name: downloads home directory permissions are set
-  file: path=/home/downloads/ state=directory mode=2755 owner=downloads group=downloads recurse=yes
+- name: downloads user home directory has perms set
+  file: path=/home/downloads state=directory mode=2775 owner=downloads group=downloads

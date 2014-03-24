@@ -94,7 +94,7 @@ enable_unrar = 1
 randomize_server_ip = 0
 email_rss = 0
 email_account = {{ smtp_username }}
-email_server = {{ smtp_server }} 
+email_server = {{ smtp_server }}
 allow_streaming = 0
 config_lock = 0
 quota_resume = 0
@@ -164,19 +164,10 @@ bookmarks = 0
 password = ""
 unbookmark = 1
 [servers]
-[[usenet.server.com]]
-username = newsuser
-enable = 1
-name = usenet.server.com
-fillserver = 0
-connections = 5
-ssl = 1
-host = usenet.server.com
-timeout = 120
-password = password!
-optional = 0
-port = 443
-retention = 0
+{% include "usenet-servers.ini" %}
+[nzbxxx]
+username = ""
+apikey = ""
 [categories]
 [[*]]
 priority = 0
@@ -185,6 +176,3 @@ name = *
 script = None
 newzbin = ""
 dir = ""
-[nzbxxx]
-username = ""
-apikey = ""
