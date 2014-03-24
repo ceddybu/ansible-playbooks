@@ -8,7 +8,7 @@
     web_listen_port: "8080"
     web_username: "username"
     web_password: "password"
-     
+
     # SMTP notification settings
     smtp_server: "smtp.mailgun.org:587"
     smtp_username: "postmaster@domain.com"
@@ -19,3 +19,4 @@
   roles:
     - common
     - sabnzbd
+    - nginx

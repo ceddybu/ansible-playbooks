@@ -5,15 +5,6 @@
 - name: Install epel GPG key
   copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 
-- name: Install rpmfusion repo
-  copy: src=rpmfusion-nonfree-updates.repo dest=/etc/yum.repos.d/rpmfusion-nonfree-updates.repo
-
-- name: Install rpmfusion GPG key
-  copy: src=RPM-GPG-KEY-rpmfusion-nonfree-el-6 dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-el-6
-
-- name: Install unrar
-  yum: name=unrar state=present enablerepo=rpmfusion-nonfree-updates
-
 - name: Install ferm
   yum: name=ferm state=present
 
@@ -32,3 +23,9 @@
 
 - name: Start iptables
   service: name=iptables enabled=yes state=started
+
+- name: downloads user is present
+  user: name=downloads state=present shell=/sbin/nologin system=yes
+
+- name: downloads home directory permissions are set
+  file: path=/home/downloads/ state=directory mode=2755 owner=downloads group=downloads recurse=yes

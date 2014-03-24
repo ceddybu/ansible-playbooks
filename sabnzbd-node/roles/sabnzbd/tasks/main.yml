@@ -1,4 +1,13 @@
 ---
+- name: Install rpmfusion repo
+  copy: src=rpmfusion-nonfree-updates.repo dest=/etc/yum.repos.d/rpmfusion-nonfree-updates.repo
+
+- name: Install rpmfusion GPG key
+  copy: src=RPM-GPG-KEY-rpmfusion-nonfree-el-6 dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-el-6
+
+- name: Install unrar
+  yum: name=unrar state=present enablerepo=rpmfusion-nonfree-updates
+
 - name: Create repo
   copy: src=sabnzbd.repo dest=/etc/yum.repos.d/sabnzbd.repo
 
@@ -11,6 +20,9 @@
 
 - name: Create sabnzbd user
   user: name={{ sabuser }} state=present shell=/sbin/nologin system=yes
+
+- name: '{{ sabuser }} user is in the downloads group'
+  user: name={{ sabuser }} state=present append=yes groups=downloads
 
 - name: Create hidden directory
   file: dest=/home/{{ sabuser }}/.sabnzbd state=directory owner={{ sabuser }} group={{ sabuser }}
