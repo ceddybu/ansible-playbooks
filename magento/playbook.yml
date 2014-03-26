@@ -1,0 +1,18 @@
+---
+- hosts: dbservers
+  sudo: yes
+  roles: 
+    - common
+    - mariadb
+  # - percona
+  # - redis
+  # - memcached  
+
+- hosts: webservers
+  sudo: yes
+  roles:
+    - common
+    - nginx
+  # - php-5.4
+  # - php-fpm
+  # - magento

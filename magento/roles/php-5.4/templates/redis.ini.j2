@@ -1,0 +1,10 @@
+; {{ ansible_managed }}
+; {{ ansible_hostname }}
+
+; Enable redis extension module
+extension = redis.so
+
+; phpredis can be used to store PHP sessions.
+; To do this, uncomment and configure below
+session.save_handler = redis
+session.save_path = "tcp://{{ redis_ip }}:{{ redis_port }}"

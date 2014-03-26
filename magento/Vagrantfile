@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+    # https://vagrantcloud.com/chef/centos-6.5
+    config.vm.box = "chef/centos-6.5"
+
+    config.vm.define "web1" do |web1|
+        web1.vm.hostname = "web1"
+        web1.vm.network "private_network", ip: "192.168.150.5"
+        config.vm.provider "virtualbox" do |v|
+            v.cpus = 3
+        end
+    end
+
+    config.vm.define "db" do |db|
+        db.vm.hostname = "db"
+        db.vm.network "private_network", ip: "192.168.150.10"
+        config.vm.provider "virtualbox" do |v|
+            v.cpus = 3
+        end
+    end
+
+    config.vm.provision "ansible" do |magento|
+    magento.playbook = "playbook.yml"
+    magento.groups = {
+    "webservers" => ["web1"],
+    "dbservers" => ["db"],
+    "all_groups:children" => ["webservers", "dbservers"]
+    }
+    end
+
+ end

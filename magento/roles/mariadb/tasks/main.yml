@@ -1,0 +1,40 @@
+---
+- name: MariaDB repo is installed
+  template: src=MariaDB.repo.j2 dest=/etc/yum.repos.d/MariaDB.repo
+
+- name: MariaDB GPG key is installed
+  copy: src=RPM-GPG-KEY-MariaDB dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB
+
+- name: MariaDB-client and MariaDB-server are installed
+  yum: state=latest name={{ item }}
+  with_items:
+    - MariaDB-client
+    - MariaDB-server
+  notify: restart mysql
+
+- name: /var/lib/mysqltmp/ exists
+  file: state=directory path=/var/lib/mysqltmp/ owner=mysql group=mysql
+
+- name: /var/log/mysql/ exists
+  file: state=directory path=/var/log/mysql/ owner=mysql group=mysql
+
+- name: my.cnf is configured
+  template: src=my.cnf.j2 dest=/etc/my.cnf
+
+- name: mariadb service is started and enabled
+  service: state=started name=mysql enabled=yes
+
+- name: MySQL-python is installed at the latest version
+  yum: name=MySQL-python state=latest
+
+- name: root mysql user password is set
+  mysql_user: name=root password={{ database_root_pw }} state=present login_unix_socket=/var/lib/mysql/mysql.sock
+
+- name: update mysql-client
+  template: src=.my.cnf.j2 dest=/root/.my.cnf
+
+- name: max_allowed_packet is tuned
+  mysql_variables: variable=max_allowed_packet value=67108864
+
+- name: innodb_lock_wait_timeout is tuned
+  mysql_variables: variable=innodb_lock_wait_timeout value=1800

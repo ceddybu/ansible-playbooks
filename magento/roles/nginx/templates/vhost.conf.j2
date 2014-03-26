@@ -1,0 +1,52 @@
+# {{ ansible_managed }}
+# {{ ansible_hostname }}
+server {
+
+    listen 80 default;
+    listen 443 default ssl;
+
+    ssl_certificate /etc/pki/tls/certs/localhost.crt;
+    ssl_certificate_key /etc/pki/tls/private/localhost.key;
+
+    server_name www.{{ vhost_domain }} {{ vhost_domain }};
+    root /var/www/vhosts/{{ vhost_domain }};
+    access_log  /var/log/nginx/{{ vhost_domain }}-access.log main;
+    error_log  /var/log/nginx/{{ vhost_domain }}-error.log warn;
+    index index.html index.php;
+
+    location / {
+        try_files $uri $uri/ @handler;
+        expires 30d;
+    }
+
+    location ~ ^/(app|includes|lib|media/customer|media/downloadable|pkginfo|var)/ { deny all; }
+    location ~ ^/RELEASE_NOTES.txt      { return 404; }
+    location ~ ^/errors/.*\.(xml|phtml)$ { return 404; }
+    location ~ ^/media/.*\.(cfg|ini|xml)$ { return 404; }
+    location ~ ^/media/.*\.(php|pl|py|jsp|asp|htm|shtml|sh|cgi) { return 404; }
+    location ~ /\. { return 404; }
+
+    location /media/ {
+        try_files $uri uri/ /get.php;
+        expires 30d;
+    }
+
+    location @handler {
+        rewrite / /index.php;
+    }
+
+    location ~ .php/ {
+        rewrite ^(.*.php)/ $1 last;
+    }
+
+    location ~ .php$ {
+        try_files $uri /index.php;
+        expires        off;
+        fastcgi_pass   unix:/var/run/php-fpm/{{ vhost_domain }}.sock;
+        fastcgi_param HTTPS $fastcgi_https;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        fastcgi_param  MAGE_RUN_CODE default;
+        fastcgi_param  MAGE_RUN_TYPE store;
+        include        fastcgi_params;
+    }
+}

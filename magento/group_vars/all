@@ -1,0 +1,13 @@
+---
+vhost_domain: catladyshop.com
+vhost_user: catladyshop
+vhost_user_uid: 808
+vhost_user_gid: 808
+timezone: US/Central
+document_root: /var/www/vhosts/{{ vhost_domain }}
+database_root_pw: test12345
+cpu_cores: "{{ ansible_processor_vcpus }}"
+
+# Redis
+redis_ip: 127.0.0.1
+redis_port: 6379
