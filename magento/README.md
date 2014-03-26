@@ -16,11 +16,11 @@ If you do use the Vagrantfile for running this playbook, running standalone `ans
 (user@host:~/ansible-playbooks/magento)$ ansible -u vagrant db -m setup -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory --private-key=~/.vagrant.d/insecure_private_key
 ```
 # TODO
-- [ ] php and all required modules for magento
-- [ ] php-fpm service on socket
-- [ ] redis
-- [ ] logic to configure local.xml to use redis for the backend and session cache 
-- [ ] memcache
-- [ ] apache support w/ fastcgi
-- [ ] Logic supporting CE or EE
-- [ ] Spinning up cloud servers behind a cloud load balancer (Rackspace)
+* [ ] php 5.4 and all required modules for magento
+* [ ] php-fpm service on socket
+* [ ] redis
+* [ ] logic to configure local.xml to use redis for the backend and session cache 
+* [ ] memcache
+* [ ] apache support w/ fastcgi
+* [ ] Logic supporting CE or EE
+* [ ] Spinning up cloud servers behind a cloud load balancer (Rackspace)
