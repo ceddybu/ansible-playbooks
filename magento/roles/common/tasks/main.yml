@@ -1,14 +1,10 @@
 ---
 - name: libselinux-python is installed
-  yum: state=latest name=libselinux-python
+  yum: state=present name=libselinux-python
 
 - name: timezone is set correctly in clock file
   template: src=clock.j2 dest=/etc/sysconfig/clock
   notify: tzdata-update
-
-- name: selinux is disabled
-  selinux: state=disabled
-  notify: reboot server
 
 - name: epel.repo is installed
   template: src=epel.repo.j2 dest=/etc/yum.repos.d/epel.repo
