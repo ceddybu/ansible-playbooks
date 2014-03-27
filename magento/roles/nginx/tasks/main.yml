@@ -2,12 +2,12 @@
 - name: nginx.repo is installed
   template: src=nginx.repo.j2 dest=/etc/yum.repos.d/nginx.repo
 
-- name: nginx is installed at the latest version
-  yum: name=nginx state=latest
+- name: nginx is installed
+  yum: state=present name=nginx
   notify: restart nginx
 
 - name: default.conf is absent
-  file: dest=/etc/nginx/conf.d/default.conf state=absent
+  file: state=absent dest=/etc/nginx/conf.d/default.conf
   notify: restart nginx
 
 - name: ssl certificate is present
@@ -30,4 +30,4 @@
   user: state=present name={{ vhost_user }} uid={{ vhost_user_uid }} shell=/sbin/nologin comment={{ vhost_domain }} home={{ document_root }}
 
 - name: nginx is started and enabled on boot
-  service: name=nginx enabled=yes state=started
+  service: state=started name=nginx enabled=yes
