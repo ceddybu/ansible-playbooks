@@ -1,11 +1,5 @@
 # ansible-playbooks
 
-My colleciton of ansible playbooks to automatically deploy various software stacks running on Linux. 
+My colleciton of ansible playbooks to easily deploy and maintain various stacks on Linux. 
 
-## Coming Soon / TODO
-* Multi server Mangeto
-  * nginx
-  * php-fpm
-  * MariaDB
-  * redis
-  * memcache
+Developed with [Vagrant](http://www.vagrantup.com/) on [VirtualBox](https://www.virtualbox.org/) and the [Rackspace Cloud](http://www.rackspace.com/cloud/).
