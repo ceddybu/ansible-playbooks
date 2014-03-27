@@ -9,10 +9,3 @@
 
 - name: restart crond
   service: state=restarted name=crond enabled=yes
-
-- name: reboot server
-  command: /sbin/reboot now
-  notify: server is alive again
-
-- name: server is alive again
-  wait_for: state=present port={{ ansible_ssh_port }} delay=15
