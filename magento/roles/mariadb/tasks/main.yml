@@ -2,16 +2,15 @@
 - name: MariaDB repo is installed
   template: src=MariaDB.repo.j2 dest=/etc/yum.repos.d/MariaDB.repo
 
-- name: MariaDB GPG key is installed
+- name: MariaDB gpg key is installed
   copy: src=RPM-GPG-KEY-MariaDB dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB
 
-- name: mysql packages are installed
+- name: mysql packages are present
   yum: state=present name={{ item }}
   with_items:
     - MariaDB-client
     - MariaDB-server
     - MySQL-python
-  notify: restart mysql
 
 - name: /var/lib/mysqltmp/ exists
   file: state=directory path=/var/lib/mysqltmp/ owner=mysql group=mysql
@@ -20,7 +19,7 @@
   file: state=directory path=/var/log/mysql/ owner=mysql group=mysql
 
 - name: /etc/my.cnf is configured
-  template: src=my.cnf.j2 dest=/etc/my.cnf owner=root group=root mode=0644
+  template: src=etc_my.cnf.j2 dest=/etc/my.cnf owner=root group=root mode=0644
   notify: restart mysql
 
 - name: mariadb service is started and enabled
@@ -30,7 +29,7 @@
   mysql_user: state=present name=root password={{ mysql_root_pw }} login_unix_socket=/var/lib/mysql/mysql.sock
 
 - name: update root's mysql client
-  template: src=.my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
+  template: src=root_.my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
 
 - name: anonymous mysql users are absent
   mysql_user: state=absent name= host={{ item }}
