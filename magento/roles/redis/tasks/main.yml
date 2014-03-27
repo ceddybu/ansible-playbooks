@@ -1,0 +1,13 @@
+---
+- name: remi.repo is installed
+  template: src=etc_yum.repos.d_remi.repo.j2 dest=/etc/yum.repos.d/remi.repo
+
+- name: remi gpg key is present
+  copy: src=etc_pki_rpm-gpg_RPM-GPG-KEY-remi dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+
+- name: redis package is present
+  yum: state=present name=redis enablerepo=remi
+
+- name: /etc/redis.conf is configured
+  template: src=etc_redis.conf.j2 dest=/etc/redis.conf owner=root group=root mode=0644
+  notify: restart redis
