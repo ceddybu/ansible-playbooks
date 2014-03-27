@@ -43,6 +43,8 @@ server {
         try_files $uri /index.php;
         expires        off;
         fastcgi_pass   unix:/var/run/php-fpm/{{ vhost_domain }}.sock;
+        fastcgi_buffers 256 4k;
+        fastcgi_read_timeout 1800s;
         fastcgi_param HTTPS $fastcgi_https;
         fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
         fastcgi_param  MAGE_RUN_CODE default;
