@@ -24,7 +24,7 @@
   notify: restart nginx
 
 - name: document root exists
-  file: path={{ document_root }} state=directory owner={{ vhost_user_uid }} group={{ vhost_user_uid }} mode=0775
+  file: state=directory path={{ document_root }} owner={{ vhost_user_uid }} group={{ vhost_user_uid }} mode=0775
 
 - name: vhost user exists
   user: state=present name={{ vhost_user }} uid={{ vhost_user_uid }} shell=/sbin/nologin comment={{ vhost_domain }} home={{ document_root }} non_unique=yes
