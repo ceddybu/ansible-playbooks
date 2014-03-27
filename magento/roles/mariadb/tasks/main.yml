@@ -5,11 +5,12 @@
 - name: MariaDB GPG key is installed
   copy: src=RPM-GPG-KEY-MariaDB dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB
 
-- name: MariaDB-client and MariaDB-server are installed
-  yum: state=latest name={{ item }}
+- name: mysql packages are installed
+  yum: state=present name={{ item }}
   with_items:
     - MariaDB-client
     - MariaDB-server
+    - MySQL-python
   notify: restart mysql
 
 - name: /var/lib/mysqltmp/ exists
@@ -18,23 +19,31 @@
 - name: /var/log/mysql/ exists
   file: state=directory path=/var/log/mysql/ owner=mysql group=mysql
 
-- name: my.cnf is configured
-  template: src=my.cnf.j2 dest=/etc/my.cnf
+- name: /etc/my.cnf is configured
+  template: src=my.cnf.j2 dest=/etc/my.cnf owner=root group=root mode=0644
+  notify: restart mysql
 
 - name: mariadb service is started and enabled
   service: state=started name=mysql enabled=yes
 
-- name: MySQL-python is installed at the latest version
-  yum: name=MySQL-python state=latest
-
 - name: root mysql user password is set
-  mysql_user: name=root password={{ database_root_pw }} state=present login_unix_socket=/var/lib/mysql/mysql.sock
+  mysql_user: state=present name=root password={{ mysql_root_pw }} login_unix_socket=/var/lib/mysql/mysql.sock
 
-- name: update mysql-client
-  template: src=.my.cnf.j2 dest=/root/.my.cnf
+- name: update root's mysql client
+  template: src=.my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
 
-- name: max_allowed_packet is tuned
-  mysql_variables: variable=max_allowed_packet value=67108864
+- name: anonymous mysql users are absent
+  mysql_user: state=absent name= host={{ item }}
+  with_items:
+    - "{{ ansible_hostname }}"
+    - localhost
 
-- name: innodb_lock_wait_timeout is tuned
-  mysql_variables: variable=innodb_lock_wait_timeout value=1800
+- name: superfluous root mysql users are absent
+  mysql_user: state=absent name=root host={{ item }}
+  with_items:
+    - "{{ ansible_hostname }}"
+    - ::1
+    - 127.0.0.1
+
+- name: mysql test database is absent
+  mysql_db: state=absent name=test
