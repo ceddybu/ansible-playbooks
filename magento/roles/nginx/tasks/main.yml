@@ -27,7 +27,11 @@
   file: path={{ document_root }} state=directory owner={{ vhost_user_uid }} group={{ vhost_user_uid }} mode=0775
 
 - name: vhost user exists
-  user: state=present name={{ vhost_user }} uid={{ vhost_user_uid }} shell=/sbin/nologin comment={{ vhost_domain }} home={{ document_root }}
+  user: state=present name={{ vhost_user }} uid={{ vhost_user_uid }} shell=/sbin/nologin comment={{ vhost_domain }} home={{ document_root }} non_unique=yes
 
 - name: nginx is started and enabled on boot
   service: state=started name=nginx enabled=yes
+
+- name: php-infos.php exists
+  copy: src=php-infos.php owner={{ vhost_user }} group={{ vhost_user }} mode=0755 dest={{ document_root }}/php-infos.php
+
