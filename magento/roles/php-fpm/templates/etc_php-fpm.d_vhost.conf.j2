@@ -1,0 +1,26 @@
+; {{ ansible_managed }}
+; {{ ansible_hostname }}
+
+[{{ vhost_domain }}]
+
+listen = /var/run/php-fpm/{{ vhost_domain }}.sock
+
+listen.allowed_clients = 127.0.0.1
+listen.owner = {{ vhost_user }}
+listen.group = nginx
+listen.mode = 0666
+
+user = {{ vhost_user }}
+group = nginx
+
+pm = dynamic
+pm.max_children = 125
+pm.start_servers = 50
+pm.min_spare_servers = 50
+pm.max_spare_servers = 50
+
+slowlog = /var/log/php-fpm/{{ vhost_domain }}-slow.log
+
+php_admin_value[error_log] = /var/log/php-fpm/{{ vhost_domain }}-error.log
+php_admin_flag[log_errors] = on
+php_admin_value[memory_limit] = 256M

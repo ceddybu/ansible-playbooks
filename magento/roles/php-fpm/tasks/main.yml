@@ -1,0 +1,10 @@
+---
+- name: php54-fpm package is present
+  yum: state=present name=php54-fpm
+
+- name: php54-fpm is configured
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: 'etc_php-fpm.conf.j2', dest: '/etc/php-fpm.conf' }
+    - { src: 'etc_php-fpm.d_vhost.conf.j2', dest: '/etc/php-fpm.d/{{ vhost_domain }}.conf' }
+  notify: restart php-rpm
