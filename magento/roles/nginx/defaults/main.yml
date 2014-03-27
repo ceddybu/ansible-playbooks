@@ -1,5 +1,0 @@
----
-vhost_domain: golfstuff.com
-vhost_user: testuser
-vhost_user_uid: 855
-document_root: /var/www/vhosts/{{ vhost_domain }}
