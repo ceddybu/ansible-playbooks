@@ -1,30 +1,5 @@
 # {{ ansible_managed }}
 # {{ ansible_hostname }}
-##  _______________________________________________________________________
-## / Rackspace MySQL 5.5 Terse Configuration File                          \
-## |                                                                       |
-## | This is a base configuration file containing the most frequently used |
-## | settings with reasonably defined default values for configuring and   |
-## | tuning MySQL. Note that these settings can likely be further tuned in |
-## | order to get optimum performance from MySQL based upon the database   |
-## | configuration and hardware platform.                                  |
-## |                                                                       |
-## | While the settings provided are likely sufficient for most            |
-## | situations, an exhaustive list of settings (with descriptions) can be |
-## | found at:                                                             |
-## | http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html   |
-## |                                                                       |
-## | Take care to only add/remove/change a setting if you are comfortable  |
-## | doing so! For Rackspace customers, if you have any questions or       |
-## | concerns, please contact the MySQL Database Services Team. Be aware   |
-## | that some work performed by this team can involve additional billable |
-## \ fees.                                                                 /
-##  -----------------------------------------------------------------------
-##         \   ^__^
-##          \  (oo)\_______
-##             (__)\       )\/\
-##                 ||----w |
-##                 ||     ||
 
 [mysqld]
 
@@ -50,29 +25,29 @@ read-rnd-buffer-size            = 1M
 join-buffer-size                = 1M
 
 ## Temp Tables
-tmp-table-size                  = 32M
-max-heap-table-size             = 64M
+tmp-table-size                  = {{ tmp_table_size }}
+max-heap-table-size             = {{ max_heap_table_size }}
 
 ## Networking
 back-log                        = 100
-#max-connections                = 200
+max-connections					= {{ max_connections }}
 max-connect-errors              = 10000
-max-allowed-packet              = 32M
+max-allowed-packet              = {{ max_allowed_packet }}
 interactive-timeout             = 3600
 wait-timeout                    = 600
 
 ### Storage Engines
 #default-storage-engine         = InnoDB
 innodb                          = FORCE
-innodb-lock-wait-timeout    = 1800
+innodb-lock-wait-timeout    = {{ innodb_lock_wait_timeout }}
 
 ## MyISAM
 key-buffer-size                 = 64M
 myisam-sort-buffer-size         = 128M
 
 ## InnoDB
-innodb-buffer-pool-size        = 1G
-innodb-log-file-size           = 100M
+innodb-buffer-pool-size        = {{ innodb_buffer_pool_size }}
+innodb-log-file-size           = {{ innodb_log_file_size }}
 #innodb-log-buffer-size         = 8M
 #innodb-file-per-table          = 1
 #innodb-open-files              = 300
