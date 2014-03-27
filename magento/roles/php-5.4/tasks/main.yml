@@ -1,0 +1,23 @@
+---
+- name: php 5.4 packages are installed
+  yum: state=present name={{ item }}
+  with_items:
+    - php54
+    - php54-gd
+    - php54-mysql
+    - php54-mcrypt
+    - php54-xml
+    - php54-xmlrpc
+    - php54-soap
+    - php54-mbstring
+    - php54-pecl-lzf
+    - php54-pecl-memcache
+    - php54-pecl-redis
+    - php54-pecl-apc
+
+- name: php 5.4 modules are configured
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: 'etc_php.ini.j2', dest: '/etc/php.ini' }
+    - { src: 'etc_php.d_apc.ini.j2', dest: '/etc/php.d/apc.ini' }
+    - { src: 'etc_php.d_redis.ini.j2', dest: '/etc/php.d/redis.ini' }
