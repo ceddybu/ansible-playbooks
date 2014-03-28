@@ -5,14 +5,14 @@ daemonize yes
 pidfile /var/run/redis/redis.pid
 port {{ redis_port }}
 tcp-backlog 511
-bind 127.0.0.1 {{ redis_bind_ip }}
+bind 127.0.0.1 {{ redis_public_ip }}
 timeout 0
 tcp-keepalive 0
 loglevel notice
 logfile /var/log/redis/redis.log
-databases 16
+databases 3
 stop-writes-on-bgsave-error yes
-rdbcompression yes
+rdbcompression no
 rdbchecksum yes
 dbfilename dump.rdb
 dir /var/lib/redis/
@@ -20,7 +20,8 @@ slave-serve-stale-data yes
 slave-read-only yes
 repl-disable-tcp-nodelay no
 slave-priority 100
-maxmemory-policy allkeys-lru
+maxmemory {{ redis_maxmemory }}
+maxmemory-policy {{ redis_maxmemory_policy }}
 appendonly no
 appendfilename "appendonly.aof"
 appendfsync everysec
@@ -29,7 +30,7 @@ auto-aof-rewrite-percentage 100
 auto-aof-rewrite-min-size 64mb
 lua-time-limit 5000
 slowlog-log-slower-than 10000
-slowlog-max-len 128
+slowlog-max-len 1024
 notify-keyspace-events ""
 hash-max-ziplist-entries 512
 hash-max-ziplist-value 64
