@@ -1,16 +1,25 @@
 ---
 # Global MySQL Defaults
-mysql_root_pw: test666
-max_allowed_packet: 67108864
-max_connections: 200
+mysql_max_allowed_packet: 256M
+mysql_max_connections: 500
+mysql_datadir: /var/lib/mysql
+mysql_tmpdir: /var/lib/mysqltmp
+mysql_socket: /var/lib/mysql/mysql.sock
+
+# Query Cache
+mysql_query_cache_type: 1
+mysql_query_cache_size: 64M
+mysql_query_cache_limit: 4M
 
 # InnoDB Defaults
-innodb_lock_wait_timeout: 1800
-innodb_buffer_pool_size: 1G
-innodb_log_file_size: 100M
+mysql_innodb_lock_wait_timeout: 1800
+mysql_innodb_buffer_pool_size: 1G
+mysql_innodb_log_file_size: 128M
 
 # MyISAM Defaults
+mysql_key_buffer_size: 512MM
+mysql_myisam_sort_buffer_size: 128M
 
 # Temp tables
-tmp_table_size: 256M
-max_heap_table_size: 64M
+mysql_tmp_table_size: 256M
+mysql_max_heap_table_size: 64M
