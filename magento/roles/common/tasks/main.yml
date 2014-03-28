@@ -1,5 +1,5 @@
 ---
-- name: libselinux-python is installed
+- name: libselinux-python is present
   yum: state=present name=libselinux-python
 
 - name: timezone is set correctly in clock file
@@ -11,9 +11,3 @@
 
 - name: epel gpg key is present
   copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
-
-- name: ius.repo is installed
-  template: src=etc_yum.repos.d_ius.repo.j2 dest=/etc/yum.repos.d/ius.repo
-
-- name: ius gpg key is present
-  copy: src=etc_pki_rpm-gpg_IUS-COMMUNITY-GPG-KEY dest=/etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
