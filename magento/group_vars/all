@@ -1,6 +1,23 @@
 ---
 # Global
 cpu_cores: "{{ ansible_processor_vcpus }}"
-
 # Choose from /usr/share/zoneinfo/
 timezone: US/Central
+# nginx, apache
+webserver: nginx
+# mariadb, percona, mysql55
+mysql_flavor: mariadb
+
+# MySQL
+mysql_root_pw: test666
+mysql_public_ip: "{{ hostvars['db']['ansible_eth1']['ipv4']['address'] }}"
+
+# Website
+vhost_domain: golfstuff.com
+vhost_user: testuser
+vhost_user_uid: 855
+document_root: /var/www/vhosts/{{ vhost_domain }}/
+
+# Redis
+redis_public_ip: "{{ hostvars['web1']['ansible_eth1']['ipv4']['address'] }}"
+redis_port: 6379
