@@ -14,15 +14,17 @@ Vagrant.configure("2") do |config|
     config.vm.define "db" do |db|
         db.vm.hostname = "db"
         db.vm.network "private_network", ip: "192.168.150.10"
-    end
 
     config.vm.provision "ansible" do |magento|
-    magento.playbook = "playbook.yml"
-    magento.groups = {
-    "webservers" => ["web1"],
-    "dbservers" => ["db"],
-    "all_groups:children" => ["webservers", "dbservers"]
-    }
+        magento.playbook = "playbook.yml"
+        magento.groups = {
+        "webservers" => ["web1"],
+        "dbservers" => ["db"],
+        "all_groups:children" => ["webservers", "dbservers"]
+        }
+        magento.limit = 'all'
+    end
+  
     end
  
  end
