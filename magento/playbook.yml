@@ -2,17 +2,16 @@
 - hosts: dbservers
   sudo: yes
   roles: 
-    - common
+    # database: mariadb, percona, or mysql55
     - mariadb
-  # - percona
-  # - memcached  
+    #  - memcached  
 
 - hosts: webservers
   sudo: yes
   roles:
-    - common
+    - redis
+    # webserver: nginx or apache
     - nginx
     - php-5.4
-    - redis
     - php-fpm
-  # - magento
+    - magento
