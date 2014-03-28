@@ -17,10 +17,13 @@ pm = dynamic
 pm.max_children = 125
 pm.start_servers = 50
 pm.min_spare_servers = 50
-pm.max_spare_servers = 50
+pm.max_spare_servers = 100
 
 slowlog = /var/log/php-fpm/{{ vhost_domain }}-slow.log
 
-php_admin_value[error_log] = /var/log/php-fpm/{{ vhost_domain }}-error.log
+php_flag[display_errors] = off
 php_admin_flag[log_errors] = on
-php_admin_value[memory_limit] = 256M
+php_admin_value[error_log] = /var/log/php-fpm/{{ vhost_domain }}-error.log
+php_admin_value[session.save_handler] = redis
+php_admin_value[session.save_path] = tcp://{{ redis_public_ip }}:{{ redis_port }}
+php_admin_value[memory_limit] = 512M
