@@ -1,1 +1,4 @@
 ---
+redis_maxmemory: 1gb
+# 'allkeys-lru' or 'volatile-lru' ?
+redis_maxmemory_policy: volatile-lru
