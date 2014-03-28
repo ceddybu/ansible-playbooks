@@ -18,10 +18,35 @@ If you do use the Vagrantfile for running this playbook, running standalone `ans
 (user@host:~/ansible-playbooks/magento)$ ansible -u vagrant db -m setup -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory --private-key=~/.vagrant.d/insecure_private_key
 ```
 # TODO
+- iptables management with ferm
 - php-fpm service on socket
+- spin up rackspace cloud servers behind cloud load balancers
+  - private networks
 - log rotation
+- follow timezone change best practice (sync hwclock)
 - configure local.xml to use redis/memcached for the backend and session cache 
 - memcached instances for legacy magento versions
 - apache support w/ php-fpm
-- supporting CE or EE
-- Spinning up cloud servers behind a cloud load balancer (Rackspace)
+- supporting CE or EE (full page cache mostly)
+- compatibility with debian / ubuntu
+
+```
+git clone https://github.com/samm-git/cm_redis_tools.git
+
+rediscli.php supports command-line execution from crontab.
+rediscli.php syntax:
+Usage: rediscli.php <args>
+-s <server> - server address
+-p <port> - server port
+-v - show process status
+-d <databases> - list of the databases, comma separated
+Example: rediscli.php -s 127.0.0.1 -p 6379 -d 0,1
+
+Sample cron entry:
+15 2 * * * /usr/bin/php /root/cm_redis_tools/rediscli.php -s 127.0.0.1 -p 6379 -d 0,1,2
+
+**********
+Using caches?
+
+mysql> SELECT * FROM core_cache_option;
+```
