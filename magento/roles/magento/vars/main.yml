@@ -1,0 +1,17 @@
+---
+# Magento to deploy
+magento_version: 1.8.1.0
+magento_release_archive: magento-{{ magento_version }}.tar.gz
+magento_sample_file: magento-sample-data-1.6.1.0.tar.gz
+
+# MySQL database connection
+magento_db_name: magento
+magento_db_user: magento
+magento_db_password: secret
+
+# Magento Admin info
+magento_admin_fname: first_name
+magento_admin_lname: last_name
+magento_admin_email: admin@example.com
+magento_admin_user: admin
+magento_admin_pass: secret
