@@ -1,0 +1,6 @@
+---
+- name: ius.repo is installed
+  template: src=etc_yum.repos.d_ius.repo.j2 dest=/etc/yum.repos.d/ius.repo
+
+- name: ius gpg key is present
+  copy: src=etc_pki_rpm-gpg_IUS-COMMUNITY-GPG-KEY dest=/etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
