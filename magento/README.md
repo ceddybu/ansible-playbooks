@@ -10,17 +10,18 @@ The included [Vagrantfile](https://docs.vagrantup.com/v2/vagrantfile/) uses [Vag
 ## Tips
 Vagrant will generate an ansible inventory file at `~/ansible-playbooks/magento/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory`
 
+
 If you do use the Vagrantfile for running this playbook, running standalone `ansible` or `ansible-playbook` require a few extra arguments.
+
 
 ```bash
 (user@host:~/ansible-playbooks/magento)$ ansible -u vagrant db -m setup -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory --private-key=~/.vagrant.d/insecure_private_key
 ```
 # TODO
-- [ ] php 5.4 and all required modules for magento
-- [ ] php-fpm service on socket
-- [ ] redis
-- [ ] logic to configure local.xml to use redis for the backend and session cache 
-- [ ] memcache
-- [ ] apache support w/ fastcgi
-- [ ] Logic supporting CE or EE
-- [ ] Spinning up cloud servers behind a cloud load balancer (Rackspace)
+- php-fpm service on socket
+- log rotation
+- configure local.xml to use redis/memcached for the backend and session cache 
+- memcached instances for legacy magento versions
+- apache support w/ php-fpm
+- supporting CE or EE
+- Spinning up cloud servers behind a cloud load balancer (Rackspace)
