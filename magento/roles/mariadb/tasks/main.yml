@@ -8,9 +8,9 @@
 - name: MariaDB/MySQL packages are present
   yum: state=present name={{ item }}
   with_items:
-    - MySQL-python
     - MariaDB-client
     - MariaDB-server
+    - MySQL-python
 
 - name: /var/lib/mysqltmp/ exists
   file: state=directory path=/var/lib/mysqltmp/ owner=mysql group=mysql
@@ -26,7 +26,7 @@
   service: state=started name=mysql enabled=yes
 
 - name: root mysql user accounts exist
-  mysql_user: state=present name=root host={{ item }} password={{ mysql_root_pw }}
+  mysql_user: state=present name=root host={{ item }} password={{ mysql_root_pw }} priv=*.*:ALL,GRANT
   with_items:
     - "%"
     - 127.0.0.1
