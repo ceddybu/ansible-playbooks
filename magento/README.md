@@ -18,9 +18,11 @@ If you do use the Vagrantfile for running this playbook, running standalone `ans
 (user@host:~/ansible-playbooks/magento)$ ansible -u vagrant db -m setup -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory --private-key=~/.vagrant.d/insecure_private_key
 ```
 # TODO
-- iptables management with ferm
+- dynamic, role based iptables management with ferm
 - spin up rackspace cloud servers behind cloud load balancers
   - private networks
+  - hook into cloud monitoring
+  - somehow integrate with heat/autoscale
 - log rotation
 - configure local.xml to use redis/memcached for the backend and session cache 
 - memcached instances for legacy magento versions or noobs
