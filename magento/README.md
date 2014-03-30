@@ -19,15 +19,14 @@ If you do use the Vagrantfile for running this playbook, running standalone `ans
 ```
 # TODO
 - iptables management with ferm
-- php-fpm service on socket
 - spin up rackspace cloud servers behind cloud load balancers
   - private networks
 - log rotation
-- follow timezone change best practice (sync hwclock)
 - configure local.xml to use redis/memcached for the backend and session cache 
-- memcached instances for legacy magento versions
+- memcached instances for legacy magento versions or noobs
+- solr instance or elasticsearch node/cluster, magento supports these as back-ends for full-text searches. 
 - apache support w/ php-fpm
-- supporting CE or EE (full page cache mostly)
+- supporting CE or EE (full page cache config mostly)
 - compatibility with debian / ubuntu
 
 ```
