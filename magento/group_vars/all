@@ -3,21 +3,26 @@
 cpu_cores: "{{ ansible_processor_vcpus }}"
 # Choose from /usr/share/zoneinfo/
 timezone: US/Central
-# nginx, apache
-webserver: nginx
-# mariadb, percona, mysql55
-mysql_flavor: mariadb
 
-# MySQL
+# MySQL: mariadb, percona, mysql55
+mysql_host: db01
 mysql_root_pw: test666
-mysql_public_ip: "{{ hostvars['db']['ansible_eth1']['ipv4']['address'] }}"
+mysql_host_ip: "{{ hostvars[mysql_host]['ansible_eth1']['ipv4']['address'] }}"
 
-# Website
+# Webserver: nginx, apache
+webserver: nginx
 vhost_domain: golfstuff.com
 vhost_user: testuser
 vhost_user_uid: 855
 document_root: /var/www/vhosts/{{ vhost_domain }}/
 
 # Redis
-redis_public_ip: "{{ hostvars['web1']['ansible_eth1']['ipv4']['address'] }}"
+redis_host: db01
+redis_host_ip: "{{ hostvars[redis_host]['ansible_eth1']['ipv4']['address'] }}"
 redis_port: 6379
+
+# Memcache
+memcache_host: db01
+memcache_host_ip: "{{ hostvars[memcache_host]['ansible_eth1']['ipv4']['address'] }}"
+memcache_object_port: 11211
+memcache_session_port: 11212
