@@ -5,7 +5,7 @@ daemonize yes
 pidfile /var/run/redis/redis.pid
 port {{ redis_port }}
 tcp-backlog 511
-bind 127.0.0.1 {{ redis_public_ip }}
+bind 127.0.0.1 {{ redis_host_ip }}
 timeout 0
 tcp-keepalive 0
 loglevel notice
