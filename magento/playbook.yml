@@ -1,17 +1,18 @@
 ---
 - hosts: dbservers
+  gather_facts: true
   sudo: yes
   roles: 
-    # database: mariadb, percona, or mysql55
-    - mariadb
-    #  - memcached  
+    # MySQL flavor: mariadb, percona, mysql55-ius
+    - percona
+    - redis
 
 - hosts: webservers
+  gather_facts: true
   sudo: yes
   roles:
-    - redis
-    # webserver: nginx or apache
     - nginx
     - php-5.4
-    - php-fpm
-    - magento
+    - php-fpm 
+    # Still broken...
+    # - magento
