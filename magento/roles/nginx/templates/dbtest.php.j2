@@ -1,0 +1,11 @@
+<?php
+$connect=mysql_connect("{{ mysql_host_ip }}","root","{{ mysql_root_pw }}") or die("Unable to Connect");
+
+mysql_select_db("mysql") or die("Could not open the db");
+$showtablequery="SHOW TABLES FROM mysql";
+$query_result=mysql_query($showtablequery);
+while($showtablerow = mysql_fetch_array($query_result))
+{
+echo $showtablerow[0]." ";
+} 
+?>
