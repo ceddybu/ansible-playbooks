@@ -37,3 +37,6 @@
 
 - name: session.php exists
   copy: src=session.php owner={{ vhost_user }} group={{ vhost_user }} mode=0755 dest={{ document_root }}/session.php
+
+- name: dbtest.php exists
+  template: src=dbtest.php.j2 owner={{ vhost_user }} group={{ vhost_user }} mode=0755 dest={{ document_root }}/dbtest.php
