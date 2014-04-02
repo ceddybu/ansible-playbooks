@@ -1,18 +1,24 @@
 ---
 - hosts: dbservers
   gather_facts: true
+  # Ansible provisioning with Vagrant requires sudo'in
   sudo: yes
+  # Specify a remote user here or in the inventory file. 
+  remote_user: vagrant
   roles: 
-    # MySQL flavor: mariadb, percona, mysql55-ius
-    - percona
+    # Reccomended/Supported MySQL 5.5 flavors: mariadb, percona, mysql55-ius
+    - mysql55-ius
     - redis
 
 - hosts: webservers
   gather_facts: true
+  # Ansible provisioning with Vagrant requires sudo'in
   sudo: yes
+  # Specify a remote user here or in the inventory file. 
+  remote_user: vagrant
   roles:
     - nginx
     - php-5.4
-    - php-fpm 
+    - php-fpm
     # Still broken...
-    # - magento
+    - magento
