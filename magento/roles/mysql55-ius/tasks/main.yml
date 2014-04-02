@@ -1,10 +1,12 @@
 ---
-#- name: default mysql packages are absent
-#  yum: state=absent name=mysql*
-  #with_items:
-#  - mysql-libs
-#  - mysql*
-#  - mysql-server
+- name: check if default mysql-libs is present
+  command: /bin/rpm -q mysql-libs
+  register: result
+  ignore_errors: True
+
+- name: default mysql-libs package is absent
+  yum: state=absent name=mysql-libs
+  when: result|success
 
 - name: mysql packages are present
   yum: state=present name={{ item }}
@@ -21,7 +23,7 @@
 
 - name: /etc/my.cnf is configured
   template: src=etc_my.cnf.j2 dest=/etc/my.cnf owner=root group=root mode=0644
-  notify: restart mysql
+  notify: restart mysqld
 
 - name: mysqld service is started and enabled
   service: state=started name=mysqld enabled=yes
