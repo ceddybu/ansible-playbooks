@@ -8,17 +8,17 @@ So far this playbook only works on RHEL 6 and it's derivatives such as [CentOS 6
 The included [Vagrantfile](https://docs.vagrantup.com/v2/vagrantfile/) uses [VagrantCloud](https://vagrantcloud.com/) box `chef/centos-6.5`. Easily deploy the stack on your local machine using [Virtualbox](https://www.virtualbox.org/).
 
 ## Tips
-Vagrant will generate an ansible inventory file at `~/ansible-playbooks/magento/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory`
+Vagrant will generate an ansible inventory file at `~/ansible-playbooks/magento/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory`.
 
+Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simplify the standalone ansible commands. 
 
-If you do use the Vagrantfile for running this playbook, running standalone `ansible` or `ansible-playbook` require a few extra arguments.
-
-
-```bash
-(user@host:~/ansible-playbooks/magento)$ ansible -u vagrant db -m setup -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory --private-key=~/.vagrant.d/insecure_private_key
-```
 # TODO
+- Investigate further APC tuning....
+- Create /etc/hosts files on each host
+- Config testing handlers (nginx -t - httpd -t)
+- add php 5.3 support for the safety/stability crowd (including myself)
 - dynamic, role based iptables management with ferm
+- creating a separate, restricted nginx/php-fpm vhost for the magento admin panel backend
 - spin up rackspace cloud servers behind cloud load balancers
   - private networks
   - hook into cloud monitoring
@@ -26,8 +26,9 @@ If you do use the Vagrantfile for running this playbook, running standalone `ans
 - log rotation
 - configure local.xml to use redis/memcached for the backend and session cache 
 - memcached instances for legacy magento versions or noobs
-- solr instance or elasticsearch node/cluster, magento supports these as back-ends for full-text searches. 
+- solr instance or elasticsearch single node/cluster, magento supports these as back-ends for full-text searches. 
 - apache support w/ php-fpm
+  - apache 2.4 ?
 - supporting CE or EE (full page cache config mostly)
 - compatibility with debian / ubuntu
 
