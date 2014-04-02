@@ -6,7 +6,7 @@ timezone: US/Central
 
 # MySQL: mariadb, percona, mysql55
 mysql_host: db01
-mysql_root_pw: test666
+mysql_root_pw: testing123!
 mysql_host_ip: "{{ hostvars[mysql_host]['ansible_eth1']['ipv4']['address'] }}"
 
 # Webserver: nginx, apache
