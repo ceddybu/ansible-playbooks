@@ -1,8 +1,11 @@
 ---
 - name: Install sabnzbd on RHEL 6 and derivatives 
   hosts: sabnzbd-node
-  user: root
+  gather_facts: true
+  # vagrant requires sudo
+  sudo: yes
+  remote_user: vagrant
+  # remote_user: root
   roles:
-    - common
     - sabnzbd
     - nginx
