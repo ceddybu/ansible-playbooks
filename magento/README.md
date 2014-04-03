@@ -1,18 +1,36 @@
 # magento ansible playbook
 The goal of this playbook is to support deploying and configuring the entire magento stack on either bare metal dedicated servers or the Rackspace Cloud. 
 
-# Requirements
-So far this playbook only works on RHEL 6 and it's derivatives such as [CentOS 6](http://www.centos.org/) & [Scientific Linux 6](https://www.scientificlinux.org/).
+## Requirements
+An [EL 6](http://en.wikipedia.org/wiki/Category:Enterprise_Linux_distributions) derived operating system such as [CentOS 6](http://www.centos.org/) & [Scientific Linux 6](https://www.scientificlinux.org/).
 
-# Vagrantfile
-The included [Vagrantfile](https://docs.vagrantup.com/v2/vagrantfile/) uses [VagrantCloud](https://vagrantcloud.com/) box `chef/centos-6.5`. Easily deploy the stack on your local machine using [Virtualbox](https://www.virtualbox.org/).
+## Supported Stacks
 
-## Tips
+### Webservers 
+- [nginx](http://wiki.nginx.org) + [php-fpm](http://php-fpm.org/)
+- (future...) [apache](http://httpd.apache.org/) + [php-fpm](http://php-fpm.org/)
+
+### Database
+Various flavors of MySQL 5.5
+- [MariaDB](https://mariadb.org/)
+- [Percona](http://www.percona.com/)
+- [MySQL 5.5](http://www.mysql.com/) via [IUS](https://iuscommunity.org/)
+
+### Caching
+- [redis](http://redis.io/)
+- [memcached](http://memcached.org/)
+- [varnish](https://www.varnish-cache.org/)
+
+## Vagrantfile
+The included [Vagrantfile](https://docs.vagrantup.com/v2/vagrantfile/) uses [VagrantCloud](https://vagrantcloud.com/) community box `chef/centos-6.5`. Easily deploy the stack on local [Virtualbox](https://www.virtualbox.org/) VMs.
+
+### Tips
 Vagrant will generate an ansible inventory file at `~/ansible-playbooks/magento/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory`.
 
 Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simplify the standalone ansible commands. 
 
-# TODO
+## TODO
+- varnish + apache (2.4?) + php-fpm
 - Investigate further APC tuning....
 - Create /etc/hosts files on each host
 - Config testing handlers (nginx -t - httpd -t)
@@ -25,13 +43,12 @@ Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simpl
   - somehow integrate with heat/autoscale
 - log rotation
 - configure local.xml to use redis/memcached for the backend and session cache 
-- memcached instances for legacy magento versions or noobs
+- memcached instances cause it's still a thing. 
 - solr instance or elasticsearch single node/cluster, magento supports these as back-ends for full-text searches. 
-- apache support w/ php-fpm
-  - apache 2.4 ?
 - supporting CE or EE (full page cache config mostly)
 - compatibility with debian / ubuntu
 
+#### Notes
 ```
 git clone https://github.com/samm-git/cm_redis_tools.git
 
