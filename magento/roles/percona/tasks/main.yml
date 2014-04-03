@@ -5,7 +5,7 @@
 - name: percona gpg key is installed
   copy: src=RPM-GPG-KEY-percona dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-percona
 
-- name: percona/MySQL packages are present
+- name: percona packages are present
   yum: state=present name={{ item }}
   with_items:
     - Percona-Server-client-55
