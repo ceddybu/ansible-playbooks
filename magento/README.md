@@ -7,7 +7,7 @@ An [EL 6](http://en.wikipedia.org/wiki/Category:Enterprise_Linux_distributions) 
 ## Supported Stacks
 
 ### Webservers 
-- [nginx](http://wiki.nginx.org) + [php-fpm](http://php-fpm.org/)
+- [nginx](http://wiki.nginx.org) + php53u or php54 + [php-fpm](http://php-fpm.org/)
 - (future...) [apache](http://httpd.apache.org/) + [php-fpm](http://php-fpm.org/)
 
 ### Database
