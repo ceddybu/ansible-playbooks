@@ -1,8 +1,8 @@
 ---
-- name: php54-fpm package is present
-  yum: state=present name=php54-fpm
+- name: php-fpm package is present
+  yum: state=present name={{ php_version }}-fpm
 
-- name: php54-fpm is configured
+- name: php-fpm is configured
   template: src={{ item.src }} dest={{ item.dest }}
   with_items:
     - { src: 'etc_php-fpm.conf.j2', dest: '/etc/php-fpm.conf' }
