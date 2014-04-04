@@ -1,0 +1,23 @@
+---
+- name: php packages are installed
+  yum: state=present name={{ item }}
+  with_items:
+    - "{{ php_version }}"
+    - "{{ php_version }}-gd"
+    - "{{ php_version }}-mysql"
+    - "{{ php_version }}-mcrypt"
+    - "{{ php_version }}-xml"
+    - "{{ php_version }}-xmlrpc"
+    - "{{ php_version }}-soap"
+    - "{{ php_version }}-mbstring"
+    - "{{ php_version }}-pecl-lzf"
+    - "{{ php_version }}-pecl-memcache"
+    - "{{ php_version }}-pecl-redis"
+    - "{{ php_version }}-pecl-apc"
+
+- name: php modules are configured
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: 'etc_php.ini.j2', dest: '/etc/php.ini' }
+    - { src: 'etc_php.d_apc.ini.j2', dest: '/etc/php.d/apc.ini' }
+    - { src: 'etc_php.d_redis.ini.j2', dest: '/etc/php.d/redis.ini' }
