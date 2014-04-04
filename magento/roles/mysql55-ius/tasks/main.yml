@@ -5,7 +5,7 @@
   ignore_errors: True
 
 - name: default mysql-libs package is absent
-  yum: state=absent name=mysql-libs
+  command: rpm -e mysql-libs --nodeps
   when: result|success
 
 - name: mysql packages are present
