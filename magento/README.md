@@ -30,11 +30,10 @@ Vagrant will generate an ansible inventory file at `~/ansible-playbooks/magento/
 Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simplify the standalone ansible commands. 
 
 ## TODO
+- setup ntp in the common role
 - varnish + apache (2.4?) + php-fpm
 - Investigate further APC tuning....
 - Create /etc/hosts files on each host
-- Config testing handlers (nginx -t - httpd -t)
-- add php 5.3 support for the safety/stability crowd (including myself)
 - dynamic, role based iptables management with ferm
 - creating a separate, restricted nginx/php-fpm vhost for the magento admin panel backend
 - spin up rackspace cloud servers behind cloud load balancers
