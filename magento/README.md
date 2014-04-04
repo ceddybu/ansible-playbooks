@@ -31,6 +31,7 @@ Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simpl
 
 ## TODO
 - setup ntp in the common role
+- support `puppetlabs/centos-6.5-64-nocm` and other centos6.5 boxes
 - varnish + apache (2.4?) + php-fpm
 - Investigate further APC tuning....
 - Create /etc/hosts files on each host
