@@ -7,7 +7,7 @@
   remote_user: vagrant
   roles: 
     # Reccomended/Supported MySQL 5.5 flavors: mariadb, percona, mysql55-ius
-    - mysql55-ius
+    - percona
     - redis
 
 - hosts: webservers
@@ -18,7 +18,6 @@
   remote_user: vagrant
   roles:
     - nginx
-    - php-5.4
+    - php
     - php-fpm
-    # Still broken...
     - magento
