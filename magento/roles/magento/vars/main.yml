@@ -14,4 +14,4 @@ magento_admin_fname: first_name
 magento_admin_lname: last_name
 magento_admin_email: admin@example.com
 magento_admin_user: admin
-magento_admin_pass: secret
+magento_admin_pass: secret123!
