@@ -27,16 +27,7 @@
   file: state=directory path={{ document_root }} owner={{ vhost_user_uid }} group={{ vhost_user_uid }} mode=0775
 
 - name: vhost user exists
-  user: state=present name={{ vhost_user }} uid={{ vhost_user_uid }} groups={{ webserver }} shell=/sbin/nologin comment={{ vhost_domain }} home={{ document_root }} non_unique=yes
+  user: state=present name={{ vhost_user }} uid={{ vhost_user_uid }} groups={{ webserver }} shell=/sbin/nologin comment={{ vhost_domain }} home={{ document_root }}/ non_unique=yes
 
 - name: nginx is started and enabled on boot
   service: state=started name=nginx enabled=yes
-
-- name: info.php exists
-  copy: src=info.php owner={{ vhost_user }} group={{ vhost_user }} mode=0755 dest={{ document_root }}/info.php
-
-- name: session.php exists
-  copy: src=session.php owner={{ vhost_user }} group={{ vhost_user }} mode=0755 dest={{ document_root }}/session.php
-
-- name: dbtest.php exists
-  template: src=dbtest.php.j2 owner={{ vhost_user }} group={{ vhost_user }} mode=0755 dest={{ document_root }}/dbtest.php
