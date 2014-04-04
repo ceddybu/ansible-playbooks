@@ -3,7 +3,7 @@
 
 Vagrant.configure("2") do |config|
 
-    # https://vagrantcloud.com/chef/centos-6.5
+    # gotta setup iptables before using puppet box config.vm.box = "puppetlabs/centos-6.5-64-nocm"
     config.vm.box = "chef/centos-6.5"
 
     config.vm.define "db01" do |db01|
