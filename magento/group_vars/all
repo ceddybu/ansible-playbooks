@@ -4,7 +4,10 @@ cpu_cores: "{{ ansible_processor_vcpus }}"
 # Choose from /usr/share/zoneinfo/
 timezone: US/Central
 
-# MySQL: mariadb, percona, mysql55
+# PHP: php53u or php54 from IUS
+php_version: php53u
+
+# MySQL
 mysql_host: db01
 mysql_root_pw: testing123!
 mysql_host_ip: "{{ hostvars[mysql_host]['ansible_eth1']['ipv4']['address'] }}"
@@ -14,7 +17,7 @@ webserver: nginx
 vhost_domain: golfstuff.com
 vhost_user: testuser
 vhost_user_uid: 855
-document_root: /var/www/vhosts/{{ vhost_domain }}/
+document_root: /var/www/vhosts/{{ vhost_domain }}
 
 # Redis
 redis_host: db01
