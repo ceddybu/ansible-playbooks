@@ -8,24 +8,24 @@ timezone: US/Central
 php_version: php53u
 
 # MySQL
-mysql_host: db01
+mysql_host: scumvillage
 mysql_root_pw: testing123!
-mysql_host_ip: "{{ hostvars[mysql_host]['ansible_eth1']['ipv4']['address'] }}"
+mysql_host_ip: "{{ hostvars[mysql_host]['ansible_eth0']['ipv4']['address'] }}"
 
 # Webserver: nginx, apache
 webserver: nginx
-vhost_domain: golfstuff.com
-vhost_user: testuser
+vhost_domain: example.com
+vhost_user: vhost-user
 vhost_user_uid: 855
 document_root: /var/www/vhosts/{{ vhost_domain }}
 
 # Redis
-redis_host: db01
-redis_host_ip: "{{ hostvars[redis_host]['ansible_eth1']['ipv4']['address'] }}"
+redis_host: scumvillage
+redis_host_ip: "{{ hostvars[redis_host]['ansible_eth0']['ipv4']['address'] }}"
 redis_port: 6379
 
 # Memcache
-memcache_host: db01
-memcache_host_ip: "{{ hostvars[memcache_host]['ansible_eth1']['ipv4']['address'] }}"
+memcache_host: scumvillage
+memcache_host_ip: "{{ hostvars[memcache_host]['ansible_eth0']['ipv4']['address'] }}"
 memcache_object_port: 11211
 memcache_session_port: 11212
