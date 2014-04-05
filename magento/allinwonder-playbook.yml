@@ -1,0 +1,15 @@
+---
+- hosts: scumvillage
+  gather_facts: true
+  roles: 
+    # Reccomended/Supported MySQL 5.5 flavors: mariadb, percona, mysql55-ius
+    - mysql55-ius
+    - redis
+
+- hosts: scumvillage
+  gather_facts: true 
+  roles:
+    - nginx
+    - php
+    - php-fpm
+    - magento
