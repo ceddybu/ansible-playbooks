@@ -6,7 +6,7 @@
   copy: src=etc_pki_rpm-gpg_RPM-GPG-KEY-remi dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-remi
 
 - name: redis package is present
-  yum: state=present name=redis enablerepo=remi
+  yum: state=present name=redis
 
 - name: /etc/redis.conf is configured
   template: src=etc_redis.conf.j2 dest=/etc/redis.conf owner=root group=root mode=0644
