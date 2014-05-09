@@ -4,7 +4,7 @@ cpu_cores: "{{ ansible_processor_vcpus }}"
 # Choose from /usr/share/zoneinfo/
 timezone: US/Central
 
-# PHP: php53u or php54 from IUS
+# PHP: php53u or php54 from IUS, or just php from the base repo
 php_version: php53u
 
 # MySQL
@@ -15,7 +15,7 @@ mysql_host_ip: "{{ hostvars[mysql_host]['ansible_eth1']['ipv4']['address'] }}"
 # Webserver: nginx, apache
 webserver: nginx
 vhost_domain: example.com
-vhost_user: vhost-user
+vhost_user: exampleuser
 vhost_user_uid: 855
 document_root: /var/www/vhosts/{{ vhost_domain }}
 

@@ -15,6 +15,7 @@
 [percona]
 name = CentOS $releasever - Percona
 baseurl=http://repo.percona.com/centos/6/os/$basearch/
-enabled = 1
+# DBAs recommended disabling repo but I'm not sure why
+enabled = 0
 gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-percona
 gpgcheck = 1

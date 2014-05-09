@@ -1,4 +1,7 @@
 ---
+- name: apache is stopped and disabled 
+  service: state=stopped name=httpd enabled=no
+
 - name: nginx.repo is installed
   template: src=nginx.repo.j2 dest=/etc/yum.repos.d/nginx.repo
 

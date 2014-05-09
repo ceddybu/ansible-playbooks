@@ -6,8 +6,16 @@
   template: src=clock.j2 dest=/etc/sysconfig/clock
   notify: tzdata-update
 
+# Rackspace dedicated servers can use epel-release package
+- name: epel-release is installed
+  yum: state=present name=epel-release
+  when: ansible_form_factor == "Rack Mount Chassis"
+
+# Install the package for all other boxes
 - name: epel.repo is installed
   template: src=epel.repo.j2 dest=/etc/yum.repos.d/epel.repo
+  when: ansible_form_factor != "Rack Mount Chassis"
 
 - name: epel gpg key is present
   copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+  when: ansible_form_factor != "Rack Mount Chassis"
