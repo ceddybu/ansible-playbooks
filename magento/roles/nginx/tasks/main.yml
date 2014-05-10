@@ -1,11 +1,18 @@
 ---
-- name: apache is stopped and disabled 
+- name: Check if httpd package is present
+  shell: rpm -q httpd
+  register: httpd_check
+  ignore_errors: yes
+  when: ansible_os_family == "RedHat"
+
+- name: httpd is stopped and disabled 
   service: state=stopped name=httpd enabled=no
+  when: httpd_check.rc == 0
 
 - name: nginx.repo is installed
   template: src=nginx.repo.j2 dest=/etc/yum.repos.d/nginx.repo
 
-- name: nginx is installed
+- name: nginx is present
   yum: state=present name=nginx
   notify: restart nginx
 
