@@ -4,13 +4,13 @@ cpu_cores: "{{ ansible_processor_vcpus }}"
 # Choose from /usr/share/zoneinfo/
 timezone: US/Central
 
-# PHP: php53u or php54 from IUS, or just php from the base repo
-php_version: php53u
-
-# MySQL
+# MySQL 5.5 Database: mariadb, percona, mysql55-ius
 mysql_host: db01
 mysql_root_pw: testing123!
 mysql_host_ip: "{{ hostvars[mysql_host]['ansible_eth1']['ipv4']['address'] }}"
+
+# PHP: php53u or php54 from IUS, or just php from the base repo
+php_version: php53u
 
 # Webserver: nginx, apache
 webserver: nginx
