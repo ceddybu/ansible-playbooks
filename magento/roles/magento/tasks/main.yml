@@ -1,10 +1,11 @@
 ---
 # WARNING
 # This role is for deploying a fresh installation of Magento on a new virtualhost and new database only.
-- name: MySQL-python package is present
+- name: mysql packages are present
   yum: state=present name={{ item }}
   with_items:
     - MySQL-python
+    - mysql
 
 - name: document root exists
   file: path={{ document_root }} state=directory mode=0775
@@ -32,7 +33,7 @@
 
 - name: move base installation to document_root
   shell: chdir={{ document_root }} mv magento/* .
-  ignore_errors: True
+  ignore_errors: yes
 
 - name: move base .htaccess to document_root
   shell: chdir={{ document_root }} mv magento/.htaccess .
