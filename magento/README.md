@@ -30,22 +30,24 @@ Vagrant will generate an ansible inventory file at `~/ansible-playbooks/magento/
 Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simplify the standalone ansible commands. 
 
 ## TODO
+- Deploy 3 redis instances instead of 1
+- Deploy 1 memcached instance
 - setup ntp in the common role
-- support `puppetlabs/centos-6.5-64-nocm` and other centos6.5 boxes
-- varnish + apache (2.4?) + php-fpm
-- Investigate further APC tuning....
-- Create /etc/hosts files on each host
 - dynamic, role based iptables management with ferm
+- varnish + apache (2.4?) + php-fpm
+- OPcode Caching
+  - Investigate further APC tuning....
+  - Install Zend OpCache via PECL. - php 5.3 and php 5.4 - opcache.php
+- Create /etc/hosts files on each host referencing the other machines in the environment
 - creating a separate, restricted nginx/php-fpm vhost for the magento admin panel backend
 - spin up rackspace cloud servers behind cloud load balancers
   - private networks
   - hook into cloud monitoring
   - somehow integrate with heat/autoscale
 - log rotation
-- configure local.xml to use redis/memcached for the backend and session cache 
-- memcached instances cause it's still a thing. 
+- configure local.xml to use redis/memcached appropriately
 - solr instance or elasticsearch single node/cluster, magento supports these as back-ends for full-text searches. 
-- supporting CE or EE (full page cache config mostly)
+- Install Magento CE or EE
 - compatibility with debian / ubuntu
 
 #### Notes
