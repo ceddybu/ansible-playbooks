@@ -43,7 +43,7 @@ max-heap-table-size             = {{ mysql_max_heap_table_size }}
 
 ## Networking
 back-log                        = 150
-max-connections					= {{ mysql_max_connections }}
+max-connections                 = {{ mysql_max_connections }}
 max-connect-errors              = 10000
 max-allowed-packet              = {{ mysql_max_allowed_packet }}
 interactive-timeout             = 3600
@@ -60,7 +60,7 @@ key-buffer-size                 = {{ mysql_key_buffer_size }}
 myisam-sort-buffer-size         = {{ mysql_myisam_sort_buffer_size }}
 
 ## InnoDB
-innodb-lock-wait-timeout		= {{ mysql_innodb_lock_wait_timeout }}
+innodb-lock-wait-timeout        = {{ mysql_innodb_lock_wait_timeout }}
 innodb-buffer-pool-size         = {{ mysql_innodb_buffer_pool_size }}
 innodb-log-file-size            = {{ mysql_innodb_log_file_size }}
 innodb-log-buffer-size          = 8M
