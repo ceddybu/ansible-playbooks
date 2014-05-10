@@ -1,5 +1,5 @@
-# magento ansible playbook
-The goal of this playbook is to support deploying and configuring the entire magento stack on either bare metal dedicated servers or the Rackspace Cloud. 
+# Magento Ansible playbook
+The goal of this playbook is to support deploying and configuring the entire magento stack on bare metal dedicated servers, purely cloud servers, or a hybrid environment.
 
 ## Requirements
 An [EL 6](http://en.wikipedia.org/wiki/Category:Enterprise_Linux_distributions) derived operating system such as [CentOS 6](http://www.centos.org/) & [Scientific Linux 6](https://www.scientificlinux.org/).
@@ -7,16 +7,24 @@ An [EL 6](http://en.wikipedia.org/wiki/Category:Enterprise_Linux_distributions) 
 ## Supported Stacks
 
 ### Webservers 
-- [nginx](http://wiki.nginx.org) + php53u or php54 + [php-fpm](http://php-fpm.org/)
-- (future...) [apache](http://httpd.apache.org/) + [php-fpm](http://php-fpm.org/)
+- [nginx](http://wiki.nginx.org) + [php-fpm](http://php-fpm.org/)
+- (todo) [apache](http://httpd.apache.org/) + [php-fpm](http://php-fpm.org/)
+
+### PHP via IUS
+- php 5.3
+- php 5.4
+
+#### Opcode Caching
+- APC
+- (todo) Zend OpCache
 
 ### Database
-Various flavors of MySQL 5.5
+MySQL 5.5 flavors:
 - [MariaDB](https://mariadb.org/)
 - [Percona](http://www.percona.com/)
 - [MySQL 5.5](http://www.mysql.com/) via [IUS](https://iuscommunity.org/)
 
-### Caching
+### Caching Layer
 - [redis](http://redis.io/)
 - [memcached](http://memcached.org/)
 - [varnish](https://www.varnish-cache.org/)
