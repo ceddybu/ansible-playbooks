@@ -30,7 +30,7 @@ MySQL 5.5 flavors:
 - [varnish](https://www.varnish-cache.org/)
 
 ## Vagrantfile
-The included [Vagrantfile](https://docs.vagrantup.com/v2/vagrantfile/) uses [VagrantCloud](https://vagrantcloud.com/) community box `chef/centos-6.5`. Easily deploy the stack on local [Virtualbox](https://www.virtualbox.org/) VMs.
+The included [Vagrantfile](https://docs.vagrantup.com/v2/vagrantfile/) uses [VagrantCloud](https://vagrantcloud.com/) community box `chef/centos-6.5` or `puppetlabs/centos-6.5-64-nocm`. Easily deploy the stack on local [Virtualbox](https://www.virtualbox.org/) VMs.
 
 ### Tips
 Vagrant will generate an ansible inventory file at `~/ansible-playbooks/magento/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory`.
