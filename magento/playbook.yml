@@ -1,18 +1,18 @@
 ---
 - hosts: dbservers
   gather_facts: true
-  # Ansible provisioning with Vagrant requires sudo'in
+  # It may be a best practice to login as 'ansible' and sudo
   sudo: yes
   # Specify a remote user here or in the inventory file. 
   remote_user: vagrant
   roles: 
-    # Reccomended/Supported MySQL 5.5 flavors: mariadb, percona, mysql55-ius
+    # Supported MySQL 5.5 flavors: mariadb, percona, mysql55-ius
     - percona
     - redis
 
 - hosts: webservers
   gather_facts: true
-  # Ansible provisioning with Vagrant requires sudo'in
+  # It may be a best practice to login as 'ansible' and sudo
   sudo: yes
   # Specify a remote user here or in the inventory file. 
   remote_user: vagrant
