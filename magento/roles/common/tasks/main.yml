@@ -2,6 +2,9 @@
 - name: libselinux-python is present
   yum: state=present name=libselinux-python
 
+- name: turn iptables off :O
+  service: state=stopped name=iptables enabled=no
+
 - name: timezone is set correctly in clock file
   template: src=clock.j2 dest=/etc/sysconfig/clock
   notify: tzdata-update
@@ -12,7 +15,7 @@
   when: ansible_form_factor == "Rack Mount Chassis"
 
 # Install the package for all other boxes
-- name: epel.repo is installed
+- name: epel.repo is present
   template: src=epel.repo.j2 dest=/etc/yum.repos.d/epel.repo
   when: ansible_form_factor != "Rack Mount Chassis"
 
