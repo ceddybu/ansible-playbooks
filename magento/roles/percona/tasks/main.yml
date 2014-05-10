@@ -6,7 +6,7 @@
   copy: src=RPM-GPG-KEY-percona dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-percona
 
 - name: percona packages are present
-  yum: state=present name={{ item }}
+  yum: state=present name={{ item }} enablerepo=percona
   with_items:
     - Percona-Server-client-55
     - Percona-Server-server-55
