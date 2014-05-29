@@ -3,6 +3,9 @@
   yum: state=present name={{ item }}
   with_items:
     - "{{ php_version }}"
+    - "{{ php_version }}-devel"
+    - "{{ php_version }}-imap"
+    - "{{ php_version }}-pdo"
     - "{{ php_version }}-gd"
     - "{{ php_version }}-mysql"
     - "{{ php_version }}-mcrypt"
@@ -14,6 +17,9 @@
     - "{{ php_version }}-pecl-memcache"
     - "{{ php_version }}-pecl-redis"
     - "{{ php_version }}-pecl-apc"
+    - "{{ php_version }}-ioncube-loader"
+    - "{{ php_version }}-pecl-redis"
+    - "{{ php_version }}-pecl-memcache"
 
 - name: php modules are configured
   template: src={{ item.src }} dest={{ item.dest }}
