@@ -8,8 +8,8 @@
 - name: percona packages are present
   yum: state=present name={{ item }} enablerepo=percona
   with_items:
-    - Percona-Server-client-55
-    - Percona-Server-server-55
+    - Percona-Server-client-{{ percona_version }}
+    - Percona-Server-server-{{ percona_version }}
     - percona-toolkit
     - MySQL-python
 

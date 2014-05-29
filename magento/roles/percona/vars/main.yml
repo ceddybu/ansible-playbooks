@@ -1,4 +1,7 @@
 ---
+# Percona Server version - 55 - 56
+percona_version: 56
+
 # Global MySQL Defaults
 mysql_max_allowed_packet: 256M
 mysql_max_connections: 500
