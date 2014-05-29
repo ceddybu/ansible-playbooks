@@ -6,6 +6,10 @@ An [EL 6](http://en.wikipedia.org/wiki/Category:Enterprise_Linux_distributions) 
 
 ## Supported Stacks
 
+## Magento
+- Community Edition 1.9.0.1
+- (Todo) Enterprise Edition 1.14.1.0
+
 ### Webservers 
 - [nginx](http://wiki.nginx.org) + [php-fpm](http://php-fpm.org/)
 - (todo) [apache](http://httpd.apache.org/) + [php-fpm](http://php-fpm.org/)
