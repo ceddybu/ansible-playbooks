@@ -2,9 +2,9 @@
 - hosts: dbservers
   gather_facts: true
   # It may be a best practice to login as 'ansible' and sudo
-  sudo: yes
+  # sudo: yes
   # Specify a remote user here or in the inventory file. 
-  remote_user: vagrant
+  # remote_user: vagrant
   roles: 
     # Supported MySQL 5.5 flavors: mariadb, percona, mysql55-ius
     - mysql55-ius
@@ -13,9 +13,9 @@
 - hosts: webservers
   gather_facts: true
   # It may be a best practice to login as 'ansible' and sudo
-  sudo: yes
+  # sudo: yes
   # Specify a remote user here or in the inventory file. 
-  remote_user: vagrant
+  # remote_user: vagrant
   roles:
     - nginx
     - php

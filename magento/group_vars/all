@@ -5,8 +5,8 @@ cpu_cores: "{{ ansible_processor_vcpus }}"
 timezone: US/Central
 
 # MySQL 5.5 Database: mariadb, percona, mysql55-ius
-mysql_host: db01
-mysql_root_pw: testing123!
+mysql_host: gluster-mage
+mysql_root_pw: password123
 mysql_host_ip: "{{ hostvars[mysql_host]['ansible_eth1']['ipv4']['address'] }}"
 
 # PHP: php53u or php54 from IUS, or just php from the base repo
@@ -14,13 +14,13 @@ php_version: php53u
 
 # Webserver: nginx, apache
 webserver: nginx
-vhost_domain: example.com
-vhost_user: exampleuser
+vhost_domain: ansiblemage.com
+vhost_user: ansiblemage
 vhost_user_uid: 855
-document_root: /var/www/vhosts/{{ vhost_domain }}
+document_root: /var/www/vhosts/{{ vhost_domain }}/html
 
 # Redis
-redis_host: db01
+redis_host: gluster-mage
 redis_host_ip: "{{ hostvars[redis_host]['ansible_eth1']['ipv4']['address'] }}"
 redis_port: 6379
 
