@@ -1,0 +1,13 @@
+---
+- name: glusterfs client packages are present
+  yum: 
+    state=present
+    name={{ item }}
+  with_items:
+    - glusterfs
+    - glusterfs-fuse
+
+- name: the fuse module is present
+  modprobe: 
+    name=fuse
+    state=present
