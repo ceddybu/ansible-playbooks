@@ -1,4 +1,4 @@
 ---
-redis_maxmemory: 1gb
+redis_maxmemory: 2gb
 # 'allkeys-lru' or 'volatile-lru' ?
 redis_maxmemory_policy: volatile-lru
