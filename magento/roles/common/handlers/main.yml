@@ -8,8 +8,14 @@
   notify: restart rsyslog
 
 - name: restart rsyslog
-  service: state=restarted name=rsyslog enabled=yes
+  service: 
+    state=restarted
+    name=rsyslog
+    enabled=yes
   notify: restart crond
 
 - name: restart crond
-  service: state=restarted name=crond enabled=yes
+  service: 
+    state=restarted
+    name=crond
+    enabled=yes

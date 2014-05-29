@@ -1,6 +1,26 @@
 ---
+# RAX dedicated linux servers use the IUS channel via RHN
+# The channel name needs some dynamic variable love for other 
+# RAX supported operating systems.
+#- name: IUS channel via RHN is present
+#  rhn_channel: state=present name=rackspace-managed-centos6-x86_64-ius
+#  when: ansible_form_factor == "Rack Mount Chassis"
+
+# Install IUS via templates on cloud servers
+- name: Check if ius repo is present
+  shell: yum repolist | grep -i ius
+  register: ius_check
+  ignore_errors: yes
+  when: ansible_os_family == "RedHat" and ansible_form_factor != "Rack Mount Chassis"
+
 - name: ius.repo is installed
-  template: src=etc_yum.repos.d_ius.repo.j2 dest=/etc/yum.repos.d/ius.repo
+  template: 
+    src=etc_yum.repos.d_ius.repo.j2
+    dest=/etc/yum.repos.d/ius.repo
+  when: ius_check.rc == 1 and ansible_form_factor != "Rack Mount Chassis"
 
 - name: ius gpg key is present
-  copy: src=etc_pki_rpm-gpg_IUS-COMMUNITY-GPG-KEY dest=/etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
+  copy: 
+    src=etc_pki_rpm-gpg_IUS-COMMUNITY-GPG-KEY
+    dest=/etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
+  when: ius_check.rc == 1 and ansible_form_factor != "Rack Mount Chassis"
