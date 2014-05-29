@@ -22,4 +22,4 @@ mysql_myisam_sort_buffer_size: 128M
 
 # Temp tables
 mysql_tmp_table_size: 256M
-mysql_max_heap_table_size: 64M
+mysql_max_heap_table_size: 256M
