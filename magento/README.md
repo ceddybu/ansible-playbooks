@@ -16,7 +16,7 @@ An [EL 6](http://en.wikipedia.org/wiki/Category:Enterprise_Linux_distributions) 
 
 #### Opcode Caching
 - APC
-- (todo) Zend OpCache
+- (todo) Zend OpCache via PECL
 
 ### Database
 MySQL 5.5 flavors:
@@ -47,11 +47,11 @@ Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simpl
   - Investigate further APC tuning....
   - Install Zend OpCache via PECL. - php 5.3 and php 5.4 - opcache.php
 - Create /etc/hosts files on each host referencing the other machines in the environment
-- creating a separate, restricted nginx/php-fpm vhost for the magento admin panel backend
+- creating a separate, restricted nginx/php-fpm vhost for the magento admin backend
 - spin up rackspace cloud servers behind cloud load balancers
   - private networks
   - hook into cloud monitoring
-  - somehow integrate with heat/autoscale
+  - integrate with heat/autoscale (api callbacks/webhooks to tower?)
 - log rotation
 - configure local.xml to use redis/memcached appropriately
 - solr instance or elasticsearch single node/cluster, magento supports these as back-ends for full-text searches. 
