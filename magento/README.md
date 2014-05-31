@@ -42,7 +42,9 @@ Vagrant will generate an ansible inventory file at `~/ansible-playbooks/magento/
 Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simplify the standalone ansible commands. 
 
 ## TODO
-- Remove magento archives from this repo and download it instead
+- add nginx default vhost place holder file
+- clone adminer/opcache-status repo instead of including in this one
+  - https://github.com/rlerdorf/opcache-status
 - Set timezone in php.ini
 - kernel performance settings in redis role
 - Add php_opcache variable and logic to install the right .ini file
