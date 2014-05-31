@@ -1,0 +1,20 @@
+---
+# Magento verions
+magento_version: 1.13.1.0
+magento_sample_data_version: 1.1.2
+magento_release_archive: magento-ee-{{ magento_version }}.tar.gz
+magento_sample_data_archive: magento-sample-data-{{ magento_sample_data_version }}.tar.bz2
+
+# MySQL database connection
+magento_db_name: magento
+magento_db_user: magento
+magento_db_password: secret
+
+# Magento Admin info
+magento_admin_fname: first_name
+magento_admin_lname: last_name
+magento_admin_email: admin@example.com
+magento_admin_user: admin
+magento_admin_pass: secret123!
+
+magento_ee_passphrase: 2SLsZ6akNG5HdjAqbJyqHRNLC35ykxfP3V0JikFAvPfQuhMJKw

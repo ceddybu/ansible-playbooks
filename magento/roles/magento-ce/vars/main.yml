@@ -1,9 +1,9 @@
 ---
-# Magento to deploy
+# Magento verions
 magento_version: 1.9.0.1
 magento_sample_data_version: 1.9.0.0
-magento_release_archive: magento-{{ magento_version }}.tar.gz
-magento_sample_data_archive: magento-sample-data-{{ magento_sample_data_version }}.tar.gz
+magento_release_archive: magento-ce-{{ magento_version }}.tar.bz2
+magento_sample_data_archive: magento-sample-data-{{ magento_sample_data_version }}.tar.bz2
 
 # MySQL database connection
 magento_db_name: magento
