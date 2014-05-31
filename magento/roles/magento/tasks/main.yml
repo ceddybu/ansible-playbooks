@@ -15,22 +15,10 @@
     state=directory
     mode=0775
 
-- name: download magento archives
-  get_url:
-    url={{ item.url }}
-    sha256sum={{ item.sha256 }}
-    dest={{ document_root }}
-    owner={{ vhost_user }}
-    group={{ vhost_user }}
-  with_items:
-    - { url: 'http://magento.raxdigital.support/{{ magento_release_archive }}', sha256: '9133e4b4f062bba4f154dd9a9f93d0ca0553b29204ff18f0123d1206a763b369' }
-    - { url: 'http://magento.raxdigital.support/{{ magento_sample_data_archive }}', sha256: 'fc825cab4d9481af5e538414c67712811440ceed74520489607382b1e69e9a88' }
-
-- name: unarchiving...
+- name: release archives are extracted
   unarchive: 
-    src={{ document_root }}/{{ item }}
+    src={{ item }}
     dest={{ document_root }}
-    copy=no
   with_items:
     - "{{ magento_release_archive }}"
     - "{{ magento_sample_data_archive }}"
@@ -64,24 +52,23 @@
     password={{ magento_db_password }}
     priv={{ magento_db_name }}.*:ALL host='{{ ansible_eth1.ipv4.address }}'
 
-# the syncronize module should be used here instead of shell
-- name: copy core files
+- name: move sample media data in place
   shell: 
-    chdir={{ document_root }} cp -a magento/{{ item }} .
+    chdir={{ document_root }} mv magento-sample-data-{{ magento_sample_data_version }}/media/catalog magento/media/catalog
+
+- name: move base installation to document_root
+  shell: 
+    chdir={{ document_root }} mv magento/{{ item }} .
   ignore_errors: yes
   with_items:
     - '*'
     - .htaccess
 
-# the syncronize module should be used here instead of shell
-- name: copy sample data
-  shell: 
-    chdir={{ document_root }} cp -a magento-sample-data-{{ magento_sample_data_version }}/{{ item }} .
-  with_items:
-    - media
-    - skin
+#- name: move base .htaccess to document_root
+#  shell: 
+#    chdir={{ document_root }} mv magento/.htaccess .
 
-- name: test scripts are present
+- name: test scripts exist
   copy: 
     src={{ item }}
     owner={{ vhost_user }}
@@ -93,18 +80,9 @@
     - info.php
     - session.php
 
-- name: clean up
+- name: clean up the leftovers
   shell: 
-    chdir={{ document_root }} rm -rf {{ item }}
-  with_items:
-    - magento
-    - magento-sample-data-{{ magento_sample_data_version }}
-    - index.php.sample
-    - php.ini.sample
-    - RELEASE_NOTES.txt
-    - LICENSE*
-    - "{{ magento_release_archive }}"
-    - "{{ magento_sample_data_archive }}"
+    chdir={{ document_root }} rm -rf magento-sample-data-{{ magento_sample_data_version }} magento index.php.sample php.ini.sample RELEASE_NOTES.txt LICENSE.txt LICENSE.html LICENSE_AFL.txt
 
 - name: magento ownership & directory permissions
   file: 

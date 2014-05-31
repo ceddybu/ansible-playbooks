@@ -14,7 +14,7 @@ php_version: php53u
 
 # Webserver: nginx, apache
 webserver: nginx
-vhost_domain: ansiblemage.com
+vhost_domain: raxdigital.support
 vhost_user: ansiblemage
 vhost_user_uid: 855
 document_root: /var/www/vhosts/{{ vhost_domain }}/html
