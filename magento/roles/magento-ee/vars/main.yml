@@ -17,4 +17,4 @@ magento_admin_email: admin@example.com
 magento_admin_user: admin
 magento_admin_pass: secret123!
 
-magento_ee_passphrase: 2SLsZ6akNG5HdjAqbJyqHRNLC35ykxfP3V0JikFAvPfQuhMJKw
+# magento_ee_passphrase: passphrase
