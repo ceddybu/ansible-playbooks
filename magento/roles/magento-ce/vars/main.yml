@@ -17,6 +17,7 @@ magento_admin_email: admin@example.com
 magento_admin_user: admin
 magento_admin_pass: secret123!
 
+# Files to delete after installation
 garbage_files:
    - magento
    - magento-sample-data-{{ magento_sample_data_version }}
