@@ -1,0 +1,167 @@
+---
+# WARNING
+# This role is for deploying a fresh installation of Magento on a new virtualhost and new database only.
+- name: mysql packages are present
+  yum: 
+    state=present
+    name={{ item }}
+  with_items:
+    - MySQL-python
+    - mysql
+
+- name: document root exists
+  file: 
+    path={{ document_root }}
+    state=directory
+    mode=0775
+
+- name: download magento archives
+  get_url:
+    url={{ item.url }}
+    sha256sum={{ item.sha256 }}
+    dest={{ document_root }}
+    owner={{ vhost_user }}
+    group={{ vhost_user }}
+  with_items:
+    - { url: 'http://magento.raxdigital.support/{{ magento_release_archive }}.gpg', sha256: 'd3563ab51116e976b9e10ebe2768cb5bb49cadab83ce7adefcfec10c90224853' }
+    - { url: 'http://magento.raxdigital.support/{{ magento_sample_data_archive }}', sha256: 'd5b6778867b93fbc6ece808a1f20872c9e534194c8870b07a54eb2f0a2422e3d' }
+
+# Use GnuPG to decrypt AES256 data with the secret passphrase
+- name: gnupg2 is present
+  yum:
+    state=present
+    name=gnupg2
+
+- name: decrypting...
+  shell: 
+    chdir={{ document_root }}
+    gpg2 --batch --passphrase {{ magento_ee_passphrase }} -d -o {{ magento_release_archive }} {{ magento_release_archive }}.gpg
+
+- name: unarchiving...
+  unarchive: 
+    src={{ document_root }}/{{ item }}
+    dest={{ document_root }}
+    copy=no
+  with_items:
+    - "{{ magento_release_archive }}"
+    - "{{ magento_sample_data_archive }}"
+
+- name: root's mysql client is updated
+  template: 
+    src=templates/root_.my.cnf.j2
+    dest=/root/.my.cnf
+    owner=root
+    group=root
+    mode=0600
+
+- name: magento database is present
+  mysql_db: 
+    state=present
+    login_host={{ mysql_host_ip }}
+    name={{ magento_db_name }}
+
+#- name: sample mysql data is imported
+#  mysql_db: 
+#    state=import
+#    login_host={{ mysql_host_ip }}
+#    name={{ magento_db_name }}
+#    target={{ document_root }}/magento-sample-data-{{ magento_sample_data_version }}/magento_sample_data_for_{{ magento_sample_data_version }}.sql
+
+- name: magento database user is present
+  mysql_user: 
+    state=present
+    login_host={{ mysql_host_ip }}
+    name={{ magento_db_user }}
+    password={{ magento_db_password }}
+    priv={{ magento_db_name }}.*:ALL host='{{ ansible_eth1.ipv4.address }}'
+
+- name: copy core files
+  shell: 
+    chdir={{ document_root }} cp -a magento/{{ item }} .
+  ignore_errors: yes
+  with_items:
+    - '*'
+    - .htaccess
+
+# the syncronize module should be used here instead of shell
+#- name: copy sample data
+#  shell: 
+#    chdir={{ document_root }} cp -a magento-sample-data-{{ magento_sample_data_version }}/{{ item }} .
+#  with_items:
+#    - media
+  #  - skin
+
+- name: test scripts are present
+  copy: 
+    src={{ item }}
+    owner={{ vhost_user }}
+    group={{ vhost_user }}
+    mode=0644
+    dest={{ document_root }}/{{ item }}
+  with_items:
+    - adminer.php
+    - info.php
+    - session.php
+
+- name: clean up
+  shell: 
+    chdir={{ document_root }}
+    rm -rf {{ item }}
+  with_items:
+    - magento
+    - magento-sample-data-{{ magento_sample_data_version }}
+    - "{{ magento_release_archive }}.gpg"
+    - "{{ magento_sample_data_archive }}"
+    - index.php.sample
+    - php.ini.sample
+    - RELEASE_NOTES.txt
+    - LICENSE*
+
+- name: magento ownership & directory permissions
+  file: 
+    state=directory
+    recurse=yes
+    path={{ document_root }}/
+    owner={{ vhost_user }}
+    group={{ vhost_user }}
+    mode=0755
+
+- name: magento file mode permissions
+  shell: 
+    chdir={{ document_root }} find . -type f -exec chmod 644 {} \;
+
+- name: mage setup script permissions
+  shell: 
+    chdir={{ document_root }} chmod 550 mage
+
+- name: mage setup script
+  shell: 
+    chdir={{ document_root }} ./mage mage-setup .
+
+- name: mage config stable state
+  shell: 
+    chdir={{ document_root }} bash mage config-set preferred_state stable
+
+- name: install mage core
+  shell: 
+    chdir={{ document_root }} bash mage install http://connect20.magentocommerce.com/community Mage_All_Latest --force
+
+- name: install mage base
+  shell: 
+    chdir={{ document_root }} php -f install.php -- --license_agreement_accepted "yes" --locale "en_US" --timezone "{{ timezone }}" --default_currency "USD" --db_host {{ mysql_host_ip }} --db_name {{ magento_db_name }} --db_user {{ magento_db_user }} --db_pass {{ magento_db_password }} --url http://{{ vhost_domain }} --skip_url_validation --use_rewrites "yes" --use_secure "no" --secure_base_url "" --use_secure_admin "no" --admin_firstname {{ magento_admin_fname }} --admin_lastname {{ magento_admin_lname }} --admin_email {{ magento_admin_email }} --admin_username {{ magento_admin_user }} --admin_password {{ magento_admin_pass }}
+
+- name: build indexes
+  shell: 
+    chdir={{ document_root }} php -f shell/indexer.php reindexall
+
+- name: install varnish extension
+  shell: 
+    chdir={{ document_root }} bash mage install http://connect20.magentocommerce.com/community/ Varnish_Cache
+
+- name: restart web stack
+  service: 
+    name={{ item }}
+    state=restarted
+  with_items:
+    - "{{ webserver }}"
+    - php-fpm

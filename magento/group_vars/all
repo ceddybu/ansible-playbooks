@@ -7,7 +7,10 @@ timezone: US/Central
 # MySQL 5.5 Database: mariadb, percona, mysql55-ius
 mysql_host: gluster-mage
 mysql_root_pw: password123
-mysql_host_ip: "{{ hostvars[mysql_host]['ansible_eth1']['ipv4']['address'] }}"
+# For a multi server setup use an actual interface
+# mysql_host_ip: "{{ hostvars[mysql_host]['ansible_eth1']['ipv4']['address'] }}"
+# For a one box wonder use localhost
+mysql_host_ip: "{{ hostvars[mysql_host]['ansible_lo']['ipv4']['address'] }}"
 
 # PHP: php53u or php54 from IUS, or just php from the base repo
 php_version: php53u
