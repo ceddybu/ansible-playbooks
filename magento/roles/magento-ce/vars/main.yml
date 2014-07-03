@@ -21,7 +21,7 @@ magento_admin_pass: secret123!
 garbage_files:
    - magento
    - magento-sample-data-{{ magento_sample_data_version }}
-   - "{{ magento_release_archive }}.gpg"
+   - "{{ magento_release_archive }}"
    - "{{ magento_sample_data_archive }}"
    - index.php.sample
    - php.ini.sample
