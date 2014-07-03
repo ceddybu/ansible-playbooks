@@ -14,7 +14,7 @@ An [EL 6](http://en.wikipedia.org/wiki/Category:Enterprise_Linux_distributions) 
 - [nginx](http://wiki.nginx.org) + [php-fpm](http://php-fpm.org/)
 - (todo) [apache](http://httpd.apache.org/) + [php-fpm](http://php-fpm.org/)
 
-### PHP via IUS
+### PHP via [IUS](https://iuscommunity.org/)
 - php 5.3
 - php 5.4
 
@@ -42,6 +42,7 @@ Vagrant will generate an ansible inventory file at `~/ansible-playbooks/magento/
 Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simplify the standalone ansible commands. 
 
 ## TODO
+- Logic/var to check is apc/opcache files should be put in place
 - add nginx default vhost place holder file
 - clone adminer/opcache-status repo instead of including in this one
   - https://github.com/rlerdorf/opcache-status
@@ -49,7 +50,7 @@ Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simpl
 - kernel performance settings in redis role
 - Add php_opcache variable and logic to install the right .ini file
 - Deploy 3 redis instances instead of 1
-- Deploy 1 memcached instance
+- Deploy 2 memcached instance
 - setup ntp in the common role
 - dynamic, role based iptables management with ferm
 - varnish + apache (2.4?) + php-fpm
