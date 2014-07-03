@@ -12,6 +12,13 @@
     state=present
     name=redis
 
+# http://redis.io/topics/admin
+- name: sysctl
+  sysctl: 
+    state=present
+    name=vm.overcommit_memory
+    value=1
+
 - name: /etc/redis.conf is configured
   template: 
     src=etc_redis.conf.j2
