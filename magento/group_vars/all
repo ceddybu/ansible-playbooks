@@ -1,34 +1,35 @@
 ---
 # Global
 cpu_cores: "{{ ansible_processor_vcpus }}"
-# Choose from /usr/share/zoneinfo/
-timezone: US/Central
+# This timezone var is used in several places, it must be compatible with PHP. 
+# http://www.php.net/manual/en/timezones.america.php#114172
+timezone: America/New_York
 
 # MySQL 5.5 Database: mariadb, percona, mysql55-ius
-mysql_host: gluster-mage
-mysql_root_pw: password123
+mysql_host: db01.raxdigital.support
+mysql_root_pw: secure-password
 # For a multi server setup use an actual interface
 # mysql_host_ip: "{{ hostvars[mysql_host]['ansible_eth1']['ipv4']['address'] }}"
 # For a one box wonder use localhost
 mysql_host_ip: "{{ hostvars[mysql_host]['ansible_lo']['ipv4']['address'] }}"
 
-# PHP: php53u or php54 from IUS, or just php from the base repo
+# PHP: php53u or php54 from IUS
 php_version: php53u
 
 # Webserver: nginx, apache
 webserver: nginx
-vhost_domain: raxdigital.support
-vhost_user: ansiblemage
+vhost_domain: www.raxdigital.support
+vhost_user: raxdigital
 vhost_user_uid: 855
-document_root: /var/www/vhosts/{{ vhost_domain }}/html
+document_root: /var/www/vhosts/{{ vhost_domain }}/public_html
 
 # Redis
-redis_host: gluster-mage
-redis_host_ip: "{{ hostvars[redis_host]['ansible_eth1']['ipv4']['address'] }}"
+redis_host: redis.raxdigital.support
+redis_host_ip: "{{ hostvars[redis_host]['ansible_eth0']['ipv4']['address'] }}"
 redis_port: 6379
 
 # Memcache
-memcache_host: db01
-memcache_host_ip: "{{ hostvars[memcache_host]['ansible_eth1']['ipv4']['address'] }}"
+memcache_host: memcached.raxdigital.support
+memcache_host_ip: "{{ hostvars[memcache_host]['ansible_eth0']['ipv4']['address'] }}"
 memcache_object_port: 11211
 memcache_session_port: 11212
