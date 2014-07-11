@@ -14,8 +14,6 @@
     - "{{ php_version }}-soap"
     - "{{ php_version }}-mbstring"
     - "{{ php_version }}-pecl-lzf"
-    - "{{ php_version }}-pecl-memcache"
-    - "{{ php_version }}-pecl-redis"
     - "{{ php_version }}-pecl-apc"
     - "{{ php_version }}-ioncube-loader"
     - "{{ php_version }}-pecl-redis"

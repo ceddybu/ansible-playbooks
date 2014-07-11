@@ -47,9 +47,9 @@ max-connections					= {{ mysql_max_connections }}
 max-connect-errors              = 10000
 max-allowed-packet              = {{ mysql_max_allowed_packet }}
 interactive-timeout             = 3600
-wait-timeout                    = 600
-net_read_timeout                = 30
-net_write_timeout               = 30
+wait-timeout                    = 20
+net-read-timeout                = 30
+net-write-timeout               = 30
 
 ### Storage Engines
 default-storage-engine          = InnoDB

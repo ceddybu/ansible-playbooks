@@ -19,11 +19,11 @@
 - name: /var/log/mysql/ exists
   file: state=directory path=/var/log/mysql/ owner=mysql group=mysql
 
-- name: /etc/my.cnf is configured
-  template: src=etc_my.cnf.j2 dest=/etc/my.cnf owner=root group=root mode=0644
-  notify: restart mysql
+#- name: /etc/my.cnf is configured
+#  template: src=etc_my.cnf.j2 dest=/etc/my.cnf owner=root group=root mode=0644
+#  notify: restart mysql
 
-- name: percona service is started and enabled
+- name: mysql service is started and enabled
   service: state=started name=mysql enabled=yes
 
 - name: root mysql user accounts exist

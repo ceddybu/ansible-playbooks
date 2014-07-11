@@ -1,9 +1,6 @@
 ;  _____________________________________
 ; /         - - - WARNING - - -         \
 ; | This file was written by Ansible.   |
-; | It's possible manual changes will   |
-; | be overwritten the next time        |
-; | ansible is run on this server.      |
 ; \_____________________________________/
 ;       \   ^__^
 ;        \  (oo)\_______
@@ -13,7 +10,7 @@
 ; {{ ansible_managed }}
 
 [PHP]
-date.timezone = "{{ timezone }}"
+date.timezone = "{{ php_tz }}"
 engine = On
 short_open_tag = Off
 asp_tags = Off

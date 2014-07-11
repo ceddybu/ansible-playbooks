@@ -13,7 +13,7 @@
     name=redis
 
 # http://redis.io/topics/admin
-- name: sysctl
+- name: the kernel is tuned for redis
   sysctl: 
     state=present
     name=vm.overcommit_memory

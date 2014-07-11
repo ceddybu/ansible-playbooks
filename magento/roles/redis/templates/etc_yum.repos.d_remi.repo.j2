@@ -1,9 +1,6 @@
 #  _____________________________________
 # /         - - - WARNING - - -         \
 # | This file was written by Ansible.   |
-# | It's possible manual changes will   |
-# | be overwritten the next time        |
-# | ansible is run on this server.      |
 # \_____________________________________/
 #       \   ^__^
 #        \  (oo)\_______
@@ -13,8 +10,8 @@
 # {{ ansible_managed }}
 
 [remi]
-name=Les RPM de remi pour Enterprise Linux 6 - $basearch
-mirrorlist=http://rpms.famillecollet.com/enterprise/6/remi/mirror
+name=Les RPM de remi pour Enterprise Linux {{ ansible_distribution_major_version }} - $basearch
+mirrorlist=http://rpms.famillecollet.com/enterprise/{{ ansible_distribution_major_version }}/remi/mirror
 # remi repo is enabled for automatic updates
 # since Magento data in redis is ephmeral
 enabled=1

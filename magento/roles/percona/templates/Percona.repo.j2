@@ -14,8 +14,7 @@
 
 [percona]
 name = CentOS $releasever - Percona
-baseurl=http://repo.percona.com/centos/6/os/$basearch/
-# DBAs recommend disabling percona repo but I'm not sure why. This playbook will enable it when necessary. 
+baseurl=http://repo.percona.com/centos/{{ ansible_distribution_major_version }}/os/$basearch/
 enabled = 0
 gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-percona
 gpgcheck = 1

@@ -4,7 +4,7 @@
     state=present
     name=libselinux-python
 
-- name: turn iptables off :O
+- name: disable iptables
   service: 
     state=stopped
     name=iptables
