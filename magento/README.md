@@ -33,6 +33,10 @@ MySQL 5.5 flavors:
 - [memcached](http://memcached.org/)
 - [varnish](https://www.varnish-cache.org/)
 
+### Filesystem
+- lsyncd for code sync (coming soon)
+- GlusterFS for shared network storage (coming soon)
+
 ## Vagrantfile
 The included [Vagrantfile](https://docs.vagrantup.com/v2/vagrantfile/) uses [VagrantCloud](https://vagrantcloud.com/) community box `chef/centos-6.5` or `puppetlabs/centos-6.5-64-nocm`. Easily deploy the entire application stack on local [Virtualbox](https://www.virtualbox.org/) VMs.
 
@@ -46,16 +50,14 @@ Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simpl
 - add nginx default vhost place holder file
 - clone adminer/opcache-status repo instead of including in this one
   - https://github.com/rlerdorf/opcache-status
-- Set timezone in php.ini
-- kernel performance settings in redis role
-- Add php_opcache variable and logic to install the right .ini file
+- moar kernel performance settings in redis role
 - Deploy 3 redis instances instead of 1
-- Deploy 2 memcached instance
-- setup ntp in the common role
+- Deploy memcached instance
+- ntp sync in the common role
 - dynamic, role based iptables management with ferm
-- varnish + apache (2.4?) + php-fpm
+- varnish
+- lsyncd
 - OPcode Caching
-  - Investigate further APC tuning....
   - Install Zend OpCache via PECL. - php 5.3 and php 5.4 - opcache.php
 - Create /etc/hosts files on each host referencing the other machines in the environment
 - creating a separate, restricted nginx/php-fpm vhost for the magento admin backend
@@ -64,9 +66,8 @@ Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simpl
   - hook into cloud monitoring
   - integrate with heat/autoscale (api callbacks/webhooks to tower?)
 - log rotation
-- configure local.xml to use redis/memcached appropriately
-- solr instance or elasticsearch single node/cluster, magento supports these as back-ends for full-text searches. 
-- Install Magento CE or EE
+- configure local.xml.example to use redis/memcached appropriately
+- solr or elasticsearch instance
 - compatibility with debian / ubuntu
 
 #### Notes
