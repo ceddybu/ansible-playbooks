@@ -22,8 +22,8 @@ user = {{ vhost_user }}
 group = {{ vhost_user }}
 
 pm = static
-pm.max_children = {{ php-fpm-max-children }}
-pm.max_requests = {{ php-fpm-max-requests }}
+pm.max_children = {{ php_fpm_max_children }}
+pm.max_requests = {{ php_fpm_max_requests }}
 pm.process_idle_timeout = 20s
 
 catch_workers_output = yes

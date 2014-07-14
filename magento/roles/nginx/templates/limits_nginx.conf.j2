@@ -1,5 +1,5 @@
 ;  _____________________________________
-; /         - - - WARNING - - -         \
+; /                                     \
 ; | This file was written by Ansible.   |
 ; \_____________________________________/
 ;       \   ^__^
@@ -9,5 +9,5 @@
 ;               ||     ||
 ; {{ ansible_managed }}
 
-nginx soft nofile 150000
-nginx hard nofile 150000
+{{ nginx_user }} soft nofile 150000
+{{ nginx_user }} hard nofile 150000

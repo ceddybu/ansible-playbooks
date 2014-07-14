@@ -9,9 +9,8 @@
 #               ||     ||
 # {{ ansible_managed }}
 
-[percona]
-name = CentOS $releasever - Percona
-baseurl=http://repo.percona.com/centos/{{ ansible_distribution_major_version }}/os/$basearch/
-enabled = 0
-gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-percona
-gpgcheck = 1
+[varnish-3.0]
+name=Varnish 3.0 for Enterprise Linux {{ ansible_distribution_major_version }} - $basearch
+baseurl=http://repo.varnish-cache.org/redhat/varnish-3.0/el{{ ansible_distribution_major_version }}/$basearch
+enabled=0
+gpgcheck=0
