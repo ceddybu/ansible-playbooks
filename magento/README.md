@@ -50,25 +50,23 @@ Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simpl
 - add nginx default vhost place holder file
 - clone adminer/opcache-status repo instead of including in this one
   - https://github.com/rlerdorf/opcache-status
-- moar kernel performance settings in redis role
+- kernel performance settings in redis/nginx role - network/fs limits 
+- nopenfile limits file for redis
 - Deploy 3 redis instances instead of 1
 - Deploy memcached instance
-- ntp sync in the common role
 - dynamic, role based iptables management with ferm
-- varnish
 - lsyncd
 - OPcode Caching
   - Install Zend OpCache via PECL. - php 5.3 and php 5.4 - opcache.php
 - Create /etc/hosts files on each host referencing the other machines in the environment
-- creating a separate, restricted nginx/php-fpm vhost for the magento admin backend
-- spin up rackspace cloud servers behind cloud load balancers
-  - private networks
-  - hook into cloud monitoring
-  - integrate with heat/autoscale (api callbacks/webhooks to tower?)
 - log rotation
 - configure local.xml.example to use redis/memcached appropriately
 - solr or elasticsearch instance
 - compatibility with debian / ubuntu
+- spin up rackspace cloud servers behind cloud load balancers
+  - private networks
+  - hook into cloud monitoring
+  - integrate with heat/autoscale (api callbacks/webhooks to tower?)
 
 #### Notes
 ```
