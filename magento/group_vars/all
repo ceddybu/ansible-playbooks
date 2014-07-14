@@ -3,8 +3,7 @@
 cpu_cores: "{{ ansible_processor_vcpus }}"
 
 # http://www.php.net/manual/en/timezones.america.php#114172
-php_tz: America/Chicago
-os_tz: US/Central
+tz: America/Chicago
 
 # MySQL 5.5 Database: mariadb, percona, mysql55-ius
 mysql_host: db01.raxdigital.support
