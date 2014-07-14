@@ -1,8 +1,14 @@
 ---
+- name: glusterfs repo is installed
+  template: 
+    src=glusterfs-epel.repo.j2
+    dest=/etc/yum.repos.d/glusterfs-epel.repo
+
 - name: glusterfs client packages are present
   yum: 
     state=present
     name={{ item }}
+    enablerepo=glusterfs-epel,glusterfs-noarch-epel
   with_items:
     - glusterfs
     - glusterfs-fuse
