@@ -12,7 +12,6 @@ An [EL 6](http://en.wikipedia.org/wiki/Category:Enterprise_Linux_distributions) 
 
 ### Webservers 
 - [nginx](http://wiki.nginx.org) + [php-fpm](http://php-fpm.org/)
-- (todo) [apache](http://httpd.apache.org/) + [php-fpm](http://php-fpm.org/)
 
 ### PHP via [IUS](https://iuscommunity.org/)
 - php 5.3

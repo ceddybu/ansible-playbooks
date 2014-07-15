@@ -4,14 +4,22 @@
     dest=/etc/yum.repos.d/varnish.repo
 
 - name: varnish is installed
-  yum: state=present name=varnish enablerepo=varnish-3.0
+  yum: 
+    state=present
+    name=varnish
+    enablerepo=varnish-3.0
 
 - name: varnish is configured
-  template: src={{ item.src }} dest={{ item.dest }}
+  template: 
+    src={{ item.src }}
+    dest={{ item.dest }}
   with_items:
     - { src: 'etc_sysconfig_varnish.j2', dest: '/etc/sysconfig/varnish' }
     - { src: 'etc_varnish_default.vcl.j2', dest: '/etc/varnish/default.vcl' }
   notify: restart varnish
 
 - name: varnish is started and enabled on boot
-  service: state=started name=varnish enabled=yes
+  service: 
+    state=started
+    name=varnish
+    enabled=yes
