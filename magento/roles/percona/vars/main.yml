@@ -17,7 +17,6 @@ mysql_query_cache_limit: 4M
 # InnoDB Defaults
 mysql_innodb_lock_wait_timeout: 1800
 mysql_innodb_buffer_pool_size: 1G
-mysql_innodb_log_file_size: 128M
 
 # MyISAM Defaults
 mysql_key_buffer_size: 512M

@@ -75,7 +75,7 @@ myisam-sort-buffer-size         = {{ mysql_myisam_sort_buffer_size }}
 ## InnoDB
 innodb-lock-wait-timeout		= {{ mysql_innodb_lock_wait_timeout }}
 innodb-buffer-pool-size			= {{ mysql_innodb_buffer_pool_size }}
-innodb-log-file-size			= {{ mysql_innodb_log_file_size }}
+innodb-log-file-size			= 100M
 innodb-log-buffer-size			= 8M
 innodb-file-per-table			= 1
 innodb-open-files				= 300

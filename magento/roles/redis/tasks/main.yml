@@ -6,10 +6,18 @@
 
 # http://redis.io/topics/admin
 - name: the kernel is tuned for redis
+  # https://github.com/ansible/ansible/issues/6272
+  ignore_errors: yes
   sysctl: 
     state=present
     name=vm.overcommit_memory
     value=1
+
+- name: ulimit is adjusted for redis
+  template:
+    src=limits_redis.conf.j2
+    dest=/etc/security/limits.d/redis.conf
+  notify: restart redis
 
 - name: /etc/redis.conf is configured
   template: 

@@ -3,11 +3,11 @@
 cpu_cores: "{{ ansible_processor_vcpus }}"
 
 # http://www.php.net/manual/en/timezones.america.php#114172
-tz: America/Chicago
+tz: America/New_York
 
 # MySQL 5.5 Database: mariadb, percona, mysql55-ius
 mysql_host: db01.raxdigital.support
-mysql_root_pw: secure-password
+#mysql_root_pw: secure-password
 # For a multi server setup use an actual interface
 # mysql_host_ip: "{{ hostvars[mysql_host]['ansible_eth1']['ipv4']['address'] }}"
 # For a one box wonder use localhost

@@ -1,5 +1,8 @@
+---
 - name: remi.repo is installed
-  template: src=remi.repo.j2 dest=/etc/yum.repos.d/remi.repo
+  template: 
+    src=remi.repo.j2
+    dest=/etc/yum.repos.d/remi.repo
 
 - name: remi gpg key is present
   copy: 

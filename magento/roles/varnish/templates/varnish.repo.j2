@@ -10,7 +10,7 @@
 # {{ ansible_managed }}
 
 [varnish-3.0]
-name=Varnish 3.0 for Enterprise Linux {{ ansible_distribution_major_version }} - $basearch
-baseurl=http://repo.varnish-cache.org/redhat/varnish-3.0/el{{ ansible_distribution_major_version }}/$basearch
+name=Varnish 3.0 for Enterprise Linux $releasever - $basearch
+baseurl=http://repo.varnish-cache.org/redhat/varnish-3.0/el6/$basearch
 enabled=0
 gpgcheck=0

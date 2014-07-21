@@ -9,8 +9,5 @@
 #               ||     ||
 # {{ ansible_managed }}
 
-[nginx]
-name=nginx official repo
-baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
-gpgcheck=0
-enabled=1
+redis soft nofile 150000
+redis hard nofile 150000

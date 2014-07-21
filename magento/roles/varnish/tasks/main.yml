@@ -1,3 +1,17 @@
+---
+- name: Check if httpd package is present
+  shell: rpm -q httpd
+  register: httpd_check
+  ignore_errors: yes
+  when: ansible_os_family == "RedHat"
+
+- name: httpd is stopped and disabled 
+  service: 
+    state=stopped
+    name=httpd
+    enabled=no
+  when: httpd_check.rc == 0
+
 - name: varnish repo is installed
   template: 
     src=varnish.repo.j2

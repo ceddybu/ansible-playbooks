@@ -22,7 +22,7 @@
 - name: php modules are configured
   template: src={{ item.src }} dest={{ item.dest }}
   with_items:
-    - { src: 'etc_php.ini.j2', dest: '/etc/php.ini' }
-    - { src: 'etc_php.d_apc.ini.j2', dest: '/etc/php.d/apc.ini' }
-    - { src: 'etc_php.d_opcache.ini.j2', dest: '/etc/php.d/opcache.ini' }
-    - { src: 'etc_php.d_redis.ini.j2', dest: '/etc/php.d/redis.ini' }
+    - { src: 'php.ini.j2', dest: '/etc/php.ini' }
+    - { src: 'apc.ini.j2', dest: '/etc/php.d/apc.ini' }
+    - { src: 'opcache.ini.j2', dest: '/etc/php.d/opcache.ini' }
+    - { src: 'redis.ini.j2', dest: '/etc/php.d/redis.ini' }
