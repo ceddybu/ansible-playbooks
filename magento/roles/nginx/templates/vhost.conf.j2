@@ -17,11 +17,11 @@ server {
     ssl_certificate /etc/pki/tls/certs/localhost.crt;
     ssl_certificate_key /etc/pki/tls/private/localhost.key;
 
-    server_name www.{{ vhost_domain }} {{ vhost_domain }};
+    server_name {{ vhost_aliases }} {{ vhost_domain }};
     root {{ document_root }};
     access_log /var/log/nginx/{{ vhost_domain }}-access.log main;
     error_log /var/log/nginx/{{ vhost_domain }}-error.log warn;
-    index index.html index.php;
+    index index.php index.html;
 
     location / {
         try_files $uri $uri/ @handler;

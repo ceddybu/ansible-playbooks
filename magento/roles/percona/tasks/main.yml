@@ -1,4 +1,22 @@
 ---
+- name: check if mysql-server is installed...
+  shell: rpm -q mysql-server
+  register: mysql_installed
+  ignore_errors: yes
+  when: ansible_os_family == "RedHat"
+
+- name: mysqld service is stopped
+  service: state=stopped name=mysqld enabled=no
+  when: mysql_installed.rc == 0
+
+- name: remove mysql rpms if installed
+  shell: rpm -e mysql mysql-server --nodeps
+  when: mysql_installed.rc == 0
+
+- name: /etc/my.cnf is present
+  template: src=my.cnf.j2 dest=/etc/my.cnf owner=root group=root mode=0644
+  notify: restart mysql
+
 - name: percona repo is installed
   template: src=Percona.repo.j2 dest=/etc/yum.repos.d/Percona.repo
 
@@ -8,20 +26,11 @@
 - name: percona packages are present
   yum: state=present name={{ item }} enablerepo=percona
   with_items:
+    - Percona-Server-shared-{{ percona_version }}
     - Percona-Server-client-{{ percona_version }}
     - Percona-Server-server-{{ percona_version }}
-    - percona-toolkit
+    - Percona-Server-shared-compat
     - MySQL-python
-
-- name: /var/lib/mysqltmp/ exists
-  file: state=directory path=/var/lib/mysqltmp/ owner=mysql group=mysql
-
-- name: /var/log/mysql/ exists
-  file: state=directory path=/var/log/mysql/ owner=mysql group=mysql
-
-#- name: /etc/my.cnf is configured
-#  template: src=etc_my.cnf.j2 dest=/etc/my.cnf owner=root group=root mode=0644
-#  notify: restart mysql
 
 - name: mysql service is started and enabled
   service: state=started name=mysql enabled=yes

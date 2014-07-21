@@ -19,9 +19,11 @@ php_version: php53u
 # Webserver: nginx, apache
 webserver: nginx
 vhost_domain: www.raxdigital.support
+vhost_aliases: raxdigital.support dev.raxdigital.support
 vhost_user: raxdigital
 vhost_user_uid: 855
 document_root: /var/www/vhosts/{{ vhost_domain }}/httpdocs
+placeholder_content: 1
 
 # Redis
 redis_host: redis.raxdigital.support

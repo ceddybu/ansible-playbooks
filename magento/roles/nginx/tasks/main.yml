@@ -23,12 +23,6 @@
     name=nginx
   notify: restart nginx
 
-- name: default.conf is absent
-  file: 
-    state=absent
-    dest=/etc/nginx/conf.d/default.conf
-  notify: restart nginx
-
 - name: ssl certificate is present
   copy: 
     src=localhost.crt
@@ -39,8 +33,10 @@
     src=localhost.key
     mode=0600
     dest=/etc/pki/tls/private/localhost.key
+    owner=root
+    group=root
 
-- name: nginx is configured
+- name: nginx base is configured
   template:
     src=nginx.conf.j2
     dest=/etc/nginx/nginx.conf
@@ -50,6 +46,12 @@
   template: 
     src=vhost.conf.j2
     dest=/etc/nginx/conf.d/{{ vhost_domain }}.conf
+  notify: restart nginx
+
+- name: default.conf placeholder is present
+  template: 
+    src=default.conf.j2
+    dest=/etc/nginx/conf.d/default.conf
   notify: restart nginx
 
 - name: ulimit is adjusted for nginx
@@ -66,11 +68,6 @@
     group={{ vhost_user_uid }}
     mode=0775
 
-- name: index placeholder
-  template: 
-    src=httpdocs_index.php.j2
-    dest={{ document_root }}/index.php
-
 - name: vhost user exists
   user: 
     state=present
@@ -81,6 +78,19 @@
     comment={{ vhost_domain }}
     home={{ document_root }}/
     non_unique=yes
+
+- name: placeholder content is present
+  copy: 
+    src={{ item }}
+    dest={{ document_root }}
+    owner={{ vhost_user_uid }}
+    group={{ vhost_user_uid }}
+    mode=0775
+  with_items:
+    - htdocs/index.html
+    - htdocs/nginx-logo.png
+    - htdocs/poweredby.png
+  when: placeholder_content == 1
 
 - name: nginx is started and enabled on boot
   service: 

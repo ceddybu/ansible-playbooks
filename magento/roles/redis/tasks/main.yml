@@ -1,12 +1,4 @@
 ---
-- name: remi.repo is installed
-  template: src=etc_yum.repos.d_remi.repo.j2 dest=/etc/yum.repos.d/remi.repo
-
-- name: remi gpg key is present
-  copy: 
-    src=etc_pki_rpm-gpg_RPM-GPG-KEY-remi
-    dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-remi
-
 - name: redis package is present
   yum: 
     state=present

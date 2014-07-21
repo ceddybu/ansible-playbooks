@@ -46,7 +46,7 @@ Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simpl
 
 ## TODO
 - Logic/var to check is apc/opcache files should be put in place
-- add nginx default vhost place holder file
+- shared ssh key 
 - clone adminer/opcache-status repo instead of including in this one
   - https://github.com/rlerdorf/opcache-status
 - kernel performance settings in redis/nginx role - network/fs limits 
@@ -54,7 +54,6 @@ Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simpl
 - Deploy 3 redis instances instead of 1
 - Deploy memcached instance
 - dynamic, role based iptables management with ferm
-- lsyncd
 - OPcode Caching
   - Install Zend OpCache via PECL. - php 5.3 and php 5.4 - opcache.php
 - Create /etc/hosts files on each host referencing the other machines in the environment
@@ -66,25 +65,3 @@ Use `ssh-add ~/.vagrant.d/insecure_private_key` to add the vagrant key and simpl
   - private networks
   - hook into cloud monitoring
   - integrate with heat/autoscale (api callbacks/webhooks to tower?)
-
-#### Notes
-```
-git clone https://github.com/samm-git/cm_redis_tools.git
-
-rediscli.php supports command-line execution from crontab.
-rediscli.php syntax:
-Usage: rediscli.php <args>
--s <server> - server address
--p <port> - server port
--v - show process status
--d <databases> - list of the databases, comma separated
-Example: rediscli.php -s 127.0.0.1 -p 6379 -d 0,1
-
-Sample cron entry:
-15 2 * * * /usr/bin/php /root/cm_redis_tools/rediscli.php -s 127.0.0.1 -p 6379 -d 0,1,2
-
-**********
-Using caches?
-
-mysql> SELECT * FROM core_cache_option;
-```

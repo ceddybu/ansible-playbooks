@@ -12,8 +12,6 @@
 [remi]
 name=Les RPM de remi pour Enterprise Linux {{ ansible_distribution_major_version }} - $basearch
 mirrorlist=http://rpms.famillecollet.com/enterprise/{{ ansible_distribution_major_version }}/remi/mirror
-# remi repo is enabled for automatic updates
-# since Magento data in redis is ephmeral
 enabled=1
 # Only use remi for redis to eliminate package conflicts.
 includepkgs=redis*
