@@ -1,0 +1,4 @@
+---
+desktop_user: oracle
+user_password: "{{ desktop_user }}"
+resolution: "1024x768"

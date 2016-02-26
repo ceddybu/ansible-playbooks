@@ -1,0 +1,79 @@
+---
+- name: Install the epel-release rpm
+  yum:
+    state=present
+    name=http://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
+    state=present
+
+- name: Ensure python packages are up to date
+  yum:
+    state=latest
+    name=python
+    enablerepo=epel
+
+- name: Install python pip
+  yum:
+    state=present
+    name=python-pip
+    enablerepo=epel
+
+- name: Install python pexpect pip package
+  pip:
+    state=present
+    name=pexpect
+
+- name: Install GNOME Desktop and TigerVNC Server
+  yum:
+    name={{ item }}
+    state=present
+  with_items:
+    - "@General Purpose Desktop"
+    - "@Desktop"
+    - tigervnc-server
+
+- name: Configure TigerVNC Server
+  template:
+    src=vncservers.j2
+    dest=/etc/sysconfig/vncservers
+    owner=root
+    group=root
+    mode=0644
+    backup=yes
+  notify: restart vncserver
+
+- name: Create VNC user
+  user:
+    name={{ desktop_user }}
+    password={{ user_password |password_hash('sha512') }}
+    state=present
+    remove=yes
+    comment="VNC User"
+
+- name: Create users .vnc directory
+  file:
+    path=/home/{{desktop_user}}/.vnc
+    state=directory
+    mode=0755
+    owner={{desktop_user}}
+    group={{desktop_user}}
+
+- name: Create VNC password
+  expect:
+    command: vncpasswd /home/{{ desktop_user }}/.vnc/passwd
+    responses:
+      'Password': "{{ user_password }}"
+      'Verify': "{{ user_password }}"
+
+- name: Set permissions on vnc passwd files
+  file:
+    state=file
+    path=/home/{{desktop_user}}/.vnc/passwd
+    mode=0600
+    owner={{desktop_user}}
+    group={{desktop_user}}
+
+- name: Start and enable VNC service
+  service:
+    name=vncserver
+    state=started
+    enabled=yes
