@@ -1,0 +1,6 @@
+---
+- name: Install vncserver on EL6 & 7 hosts
+  hosts: lanec-ansible-vnc-dev
+  gather_facts: true
+  roles:
+    - vnc
